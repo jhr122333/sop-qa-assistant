@@ -9,7 +9,7 @@
 
 | Version | Link | 설명 |
 |--------|------|------|
-| 🎯 데모 (바로 실행) | [sop-qa-demo.html](https://jhr122333.github.io/sop-qa-assistant/sop-qa-demo.html) | API 키 불필요 |
+| 🎯 데모  | [sop-qa-demo.html](https://jhr122333.github.io/sop-qa-assistant/sop-qa-demo.html) | API 키 불필요 |
 ---
 
 ## 📌 프로젝트 개요
