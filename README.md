@@ -11,7 +11,6 @@
 |--------|------|
 | 🇰🇷 한국어 | [sop-qa-assistant-ko.html](https://jhr122333.github.io/sop-qa-assistant/sop-qa-assistant-ko.html) |
 | 🇺🇸 English | [sop-qa-assistant-en.html](https://jhr122333.github.io/sop-qa-assistant/sop-qa-assistant-en.html) |
-| 🤖 Live Demo | [바로 체험하기](https://claude.ai/share/b24340d3-d060-40eb-aa9d-bc95fb5ef76c) |
 ---
 
 ## 📌 프로젝트 개요
