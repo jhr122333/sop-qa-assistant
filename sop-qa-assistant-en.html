@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SOP Q&A Assistant</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f4f1eb;
+    --surface: #fdfcf9;
+    --border: #d6d0c4;
+    --text: #1a1814;
+    --text-muted: #7a7468;
+    --accent: #2a5c45;
+    --accent-light: #e8f0ec;
+    --accent2: #c4843a;
+    --user-bg: #2a5c45;
+    --bot-bg: #fdfcf9;
+    --tag-bg: #eef4f0;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 28px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-shrink: 0;
+  }
+
+  .logo-mark {
+    width: 36px;
+    height: 36px;
+    background: var(--accent);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'DM Serif Display', serif;
+    color: white;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .header-text h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 17px;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+  }
+
+  .header-text p {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-top: 1px;
+  }
+
+  .header-badge {
+    margin-left: auto;
+    background: var(--accent-light);
+    color: var(--accent);
+    font-size: 11px;
+    font-family: 'DM Mono', monospace;
+    padding: 4px 10px;
+    border-radius: 20px;
+    border: 1px solid #c2d9cc;
+    letter-spacing: 0.04em;
+  }
+
+  .main { display: flex; flex: 1; overflow: hidden; }
+
+  .sidebar {
+    width: 260px;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    overflow-y: auto;
+  }
+
+  .sidebar-header {
+    padding: 16px 18px 10px;
+    font-size: 10px;
+    font-family: 'DM Mono', monospace;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .doc-item {
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+
+  .doc-item:hover { background: var(--accent-light); }
+  .doc-item.active { background: var(--accent-light); border-left: 3px solid var(--accent); }
+
+  .doc-item-title { font-size: 12.5px; font-weight: 500; line-height: 1.4; color: var(--text); }
+  .doc-item-meta { font-size: 10.5px; color: var(--text-muted); font-family: 'DM Mono', monospace; margin-top: 4px; }
+
+  .doc-tag {
+    display: inline-block;
+    background: var(--tag-bg);
+    color: var(--accent);
+    font-size: 9px;
+    font-family: 'DM Mono', monospace;
+    padding: 2px 6px;
+    border-radius: 3px;
+    margin-top: 5px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .chat-area { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+
+  .messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 24px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .welcome { margin: auto; text-align: center; max-width: 420px; padding: 20px; }
+  .welcome-icon { font-size: 40px; margin-bottom: 16px; }
+
+  .welcome h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 24px;
+    font-weight: 400;
+    margin-bottom: 10px;
+    color: var(--text);
+  }
+
+  .welcome p { font-size: 13.5px; color: var(--text-muted); line-height: 1.7; margin-bottom: 20px; }
+
+  .sample-questions { display: flex; flex-direction: column; gap: 8px; text-align: left; }
+
+  .sample-q {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 12.5px;
+    cursor: pointer;
+    transition: all 0.15s;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .sample-q:hover { border-color: var(--accent); background: var(--accent-light); color: var(--accent); }
+  .sample-q::before { content: "→"; font-family: 'DM Mono', monospace; color: var(--accent2); flex-shrink: 0; }
+
+  .message { display: flex; flex-direction: column; gap: 6px; animation: fadeUp 0.3s ease; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .message.user { align-items: flex-end; }
+  .message.bot { align-items: flex-start; }
+
+  .message-bubble { max-width: 72%; padding: 12px 16px; border-radius: 12px; font-size: 13.5px; line-height: 1.65; }
+
+  .user .message-bubble { background: var(--user-bg); color: white; border-radius: 12px 12px 2px 12px; }
+  .bot .message-bubble { background: var(--bot-bg); border: 1px solid var(--border); color: var(--text); border-radius: 12px 12px 12px 2px; }
+
+  .message-bubble p { margin-bottom: 8px; }
+  .message-bubble p:last-child { margin-bottom: 0; }
+  .message-bubble strong { color: var(--accent); font-weight: 600; }
+
+  .source-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: var(--tag-bg);
+    border: 1px solid #c2d9cc;
+    color: var(--accent);
+    font-size: 10.5px;
+    font-family: 'DM Mono', monospace;
+    padding: 3px 8px;
+    border-radius: 4px;
+    margin-top: 8px;
+    letter-spacing: 0.03em;
+  }
+
+  .source-tag::before { content: "📄"; font-size: 10px; }
+
+  .typing-indicator {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 12px 16px;
+    background: var(--bot-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px 12px 12px 2px;
+    width: fit-content;
+  }
+
+  .typing-dot { width: 6px; height: 6px; background: var(--text-muted); border-radius: 50%; animation: typingBounce 1.2s infinite; }
+  .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+  .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+  @keyframes typingBounce {
+    0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+    30% { transform: translateY(-4px); opacity: 1; }
+  }
+
+  .input-area { padding: 16px 28px 20px; border-top: 1px solid var(--border); background: var(--surface); flex-shrink: 0; }
+  .input-row { display: flex; gap: 10px; align-items: flex-end; }
+  .input-wrap { flex: 1; position: relative; }
+
+  textarea {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--bg);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13.5px;
+    color: var(--text);
+    resize: none;
+    outline: none;
+    transition: border-color 0.15s;
+    line-height: 1.5;
+    min-height: 44px;
+    max-height: 120px;
+  }
+
+  textarea:focus { border-color: var(--accent); }
+  textarea::placeholder { color: var(--text-muted); }
+
+  .send-btn {
+    width: 44px;
+    height: 44px;
+    background: var(--accent);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+    flex-shrink: 0;
+    color: white;
+    font-size: 16px;
+  }
+
+  .send-btn:hover { background: #1e4433; transform: translateY(-1px); }
+  .send-btn:disabled { background: var(--border); cursor: not-allowed; transform: none; }
+
+  .input-hint { font-size: 10.5px; color: var(--text-muted); font-family: 'DM Mono', monospace; margin-top: 8px; letter-spacing: 0.03em; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-mark">S</div>
+  <div class="header-text">
+    <h1>SOP Q&A Assistant</h1>
+    <p>Pharmaceutical Document Intelligence</p>
+  </div>
+  <div class="header-badge">● AI POWERED</div>
+</header>
+
+<div class="main">
+  <aside class="sidebar">
+    <div class="sidebar-header">Reference Documents</div>
+
+    <div class="doc-item active" onclick="selectDoc(0)">
+      <div class="doc-item-title">GMP Cleaning Validation SOP</div>
+      <div class="doc-item-meta">SOP-MFG-001 · Rev.3</div>
+      <span class="doc-tag">Manufacturing</span>
+    </div>
+
+    <div class="doc-item" onclick="selectDoc(1)">
+      <div class="doc-item-title">Equipment Qualification & Calibration</div>
+      <div class="doc-item-meta">SOP-QC-012 · Rev.5</div>
+      <span class="doc-tag">Quality Control</span>
+    </div>
+
+    <div class="doc-item" onclick="selectDoc(2)">
+      <div class="doc-item-title">Deviation & CAPA Management</div>
+      <div class="doc-item-meta">SOP-QA-007 · Rev.2</div>
+      <span class="doc-tag">Quality Assurance</span>
+    </div>
+  </aside>
+
+  <div class="chat-area">
+    <div class="messages" id="messages">
+      <div class="welcome" id="welcome">
+        <div class="welcome-icon">🔬</div>
+        <h2>Ask about your SOPs</h2>
+        <p>Ask any question about pharmaceutical SOPs. I'll find the relevant section and give you a clear, accurate answer.</p>
+        <div class="sample-questions">
+          <div class="sample-q" onclick="askSample(this)">What are the cleaning validation acceptance criteria?</div>
+          <div class="sample-q" onclick="askSample(this)">How should equipment calibration records be maintained?</div>
+          <div class="sample-q" onclick="askSample(this)">What is the CAPA process for a critical deviation?</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="input-area">
+      <div class="input-row">
+        <div class="input-wrap">
+          <textarea id="userInput" placeholder="Ask a question about the SOP documents..." rows="1"
+            onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
+        </div>
+        <button class="send-btn" id="sendBtn" onclick="sendMessage()">↑</button>
+      </div>
+      <div class="input-hint">Enter to send · Shift+Enter for new line</div>
+    </div>
+  </div>
+</div>
+
+<script>
+const DOCS = [
+  {
+    id: "SOP-MFG-001",
+    title: "GMP Cleaning Validation SOP",
+    tag: "Manufacturing",
+    content: `
+SOP-MFG-001: GMP Cleaning Validation Standard Operating Procedure (Rev.3)
+
+1. PURPOSE
+This SOP defines the requirements for cleaning validation of manufacturing equipment to prevent cross-contamination between products and ensure compliance with GMP regulations.
+
+2. SCOPE
+Applicable to all product-contact equipment in the manufacturing facility, including reactors, filling lines, and transfer systems.
+
+3. ACCEPTANCE CRITERIA
+3.1 Residual Limit Calculation: The Maximum Allowable Carryover (MACO) is calculated using the formula: MACO = (TDD × MBS) / (SF × LDD)
+    - TDD: Therapeutic Daily Dose of the previous product
+    - MBS: Minimum Batch Size of the next product
+    - SF: Safety Factor (default: 1000 for oral-to-oral)
+    - LDD: Largest Daily Dose of the next product
+3.2 Visual Inspection: Equipment surfaces must be visually clean with no visible residues.
+3.3 TOC Limit: Total Organic Carbon must be ≤ 10 ppm in rinse water samples.
+3.4 Microbial Limit: Bioburden must not exceed 100 CFU/mL (non-sterile) or 10 CFU/100mL (sterile).
+
+4. SAMPLING METHODS
+4.1 Swab Sampling: Used for accessible surfaces. Swab area: 25 cm². Submit within 4 hours.
+4.2 Rinse Sampling: Final rinse water collected from equipment outlets. Volume: 100–500 mL.
+4.3 Placebo Method: Run a placebo batch and analyze for residues.
+
+5. DOCUMENTATION
+All cleaning records must be completed at time of cleaning and signed by the operator and a QC reviewer within 24 hours. Retain records for 5 years or product lifecycle + 1 year, whichever is longer.
+
+6. REVALIDATION TRIGGERS
+Revalidation is required when: (a) cleaning agent changes, (b) equipment modification occurs, (c) new product is introduced sharing the same equipment, (d) cleaning failure has been observed twice consecutively.
+`
+  },
+  {
+    id: "SOP-QC-012",
+    title: "Equipment Qualification & Calibration",
+    tag: "Quality Control",
+    content: `
+SOP-QC-012: Equipment Qualification and Calibration Standard Operating Procedure (Rev.5)
+
+1. PURPOSE
+To establish requirements for qualification, calibration, and maintenance of equipment used in manufacturing and quality control operations.
+
+2. QUALIFICATION PHASES
+2.1 Design Qualification (DQ): Verification that the design of equipment meets intended purpose and regulatory requirements. Required documentation: User Requirement Specification (URS), vendor assessment.
+2.2 Installation Qualification (IQ): Verification that equipment is installed correctly per manufacturer specifications. Includes utilities, instruments, and safety features check.
+2.3 Operational Qualification (OQ): Verification that equipment operates within defined parameters across its operational range. Challenge tests at minimum, nominal, and maximum settings.
+2.4 Performance Qualification (PQ): Verification that equipment consistently performs according to defined criteria under actual or simulated production conditions.
+
+3. CALIBRATION REQUIREMENTS
+3.1 Frequency: Critical instruments (e.g., temperature, pressure, pH) must be calibrated at minimum annually. High-risk instruments (used in sterile manufacturing) every 6 months.
+3.2 Calibration Standards: All reference standards must be traceable to national or international standards (NIST, KIST).
+3.3 Out-of-Calibration Procedure: Immediately quarantine the instrument. Assess impact on products tested during the out-of-calibration period. Issue deviation report within 24 hours.
+
+4. CALIBRATION RECORDS
+Records must include: instrument ID, calibration date, due date, results, reference standard used, pass/fail status, and technician signature. All records retained for minimum 10 years.
+
+5. MAINTENANCE
+Preventive maintenance schedules must be established for all GMP-critical equipment. Any unplanned maintenance must be documented and impact on product quality assessed.
+`
+  },
+  {
+    id: "SOP-QA-007",
+    title: "Deviation & CAPA Management",
+    tag: "Quality Assurance",
+    content: `
+SOP-QA-007: Deviation and CAPA Management Standard Operating Procedure (Rev.2)
+
+1. PURPOSE
+To define the process for identifying, classifying, investigating, and resolving deviations from established procedures, and implementing Corrective and Preventive Actions (CAPA).
+
+2. DEVIATION CLASSIFICATION
+2.1 Critical Deviation: Direct impact on product quality, patient safety, or regulatory compliance. Examples: sterility failure, wrong active ingredient, temperature excursion in cold chain.
+2.2 Major Deviation: Potential indirect impact on product quality. Examples: incomplete batch record, cleaning procedure not followed.
+2.3 Minor Deviation: No direct product quality impact. Examples: documentation errors corrected at time of occurrence, minor procedural deviation.
+
+3. DEVIATION REPORTING TIMELINE
+- Critical: Report to QA within 1 hour. Notify regulatory affairs within 24 hours if product may be affected.
+- Major: Report to QA within 4 hours. Investigation initiated within 24 hours.
+- Minor: Report to QA within 24 hours. Document and close within 30 days.
+
+4. INVESTIGATION PROCESS
+4.1 Root Cause Analysis (RCA): Use systematic tools such as Fishbone Diagram, 5-Why Analysis, or Fault Tree Analysis.
+4.2 Impact Assessment: Evaluate effect on current batch, previous batches, and other products sharing the same process or equipment.
+4.3 Investigation Report: Must be completed within 30 days (critical/major) or 45 days (minor) of deviation detection.
+
+5. CAPA PROCESS
+5.1 Corrective Action: Immediate action to correct the detected deviation and its effects.
+5.2 Preventive Action: Systemic changes to prevent recurrence. May include SOP revision, training, equipment modification.
+5.3 CAPA Effectiveness Check: Must be verified within 90 days of implementation. If ineffective, escalate to Quality Review Board.
+
+6. TREND ANALYSIS
+QA must perform monthly trend analysis on deviations. More than 3 similar minor deviations in 90 days automatically triggers a Major CAPA.
+`
+  }
+];
+
+let selectedDocIndex = 0;
+let conversationHistory = [];
+let isLoading = false;
+
+function selectDoc(index) {
+  selectedDocIndex = index;
+  document.querySelectorAll('.doc-item').forEach((el, i) => {
+    el.classList.toggle('active', i === index);
+  });
+}
+
+function askSample(el) {
+  document.getElementById('userInput').value = el.textContent;
+  sendMessage();
+}
+
+function handleKey(e) {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    sendMessage();
+  }
+}
+
+function autoResize(el) {
+  el.style.height = 'auto';
+  el.style.height = Math.min(el.scrollHeight, 120) + 'px';
+}
+
+function addMessage(role, content, sourceDoc) {
+  const welcome = document.getElementById('welcome');
+  if (welcome) welcome.remove();
+
+  const msgs = document.getElementById('messages');
+  const div = document.createElement('div');
+  div.className = `message ${role}`;
+
+  const bubble = document.createElement('div');
+  bubble.className = 'message-bubble';
+
+  if (role === 'bot') {
+    bubble.innerHTML = content.replace(/\n/g, '<br>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+    if (sourceDoc) {
+      const tag = document.createElement('div');
+      tag.className = 'source-tag';
+      tag.textContent = `${sourceDoc.id} · ${sourceDoc.title}`;
+      bubble.appendChild(tag);
+    }
+  } else {
+    bubble.textContent = content;
+  }
+
+  div.appendChild(bubble);
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function showTyping() {
+  const welcome = document.getElementById('welcome');
+  if (welcome) welcome.remove();
+
+  const msgs = document.getElementById('messages');
+  const div = document.createElement('div');
+  div.className = 'message bot';
+  div.id = 'typing';
+  div.innerHTML = `<div class="typing-indicator">
+    <div class="typing-dot"></div>
+    <div class="typing-dot"></div>
+    <div class="typing-dot"></div>
+  </div>`;
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function removeTyping() {
+  const t = document.getElementById('typing');
+  if (t) t.remove();
+}
+
+async function sendMessage() {
+  const input = document.getElementById('userInput');
+  const question = input.value.trim();
+  if (!question || isLoading) return;
+
+  isLoading = true;
+  document.getElementById('sendBtn').disabled = true;
+  input.value = '';
+  input.style.height = 'auto';
+
+  addMessage('user', question);
+  showTyping();
+
+  const doc = DOCS[selectedDocIndex];
+  conversationHistory.push({ role: 'user', content: question });
+
+  const systemPrompt = `You are an expert pharmaceutical SOP assistant. Answer questions based strictly on the provided SOP document content.
+
+Current SOP Document:
+---
+${doc.content}
+---
+
+Guidelines:
+- Answer concisely and accurately based only on the document
+- Use **bold** for key terms, values, and important thresholds
+- If the answer is not in the document, say so clearly
+- Reference specific sections when relevant (e.g., "According to Section 3.1...")
+- Keep answers focused and professional`;
+
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        system: systemPrompt,
+        messages: conversationHistory
+      })
+    });
+
+    const data = await response.json();
+    const reply = data.content?.[0]?.text || 'Sorry, I could not generate a response.';
+
+    conversationHistory.push({ role: 'assistant', content: reply });
+
+    removeTyping();
+    addMessage('bot', reply, doc);
+  } catch (err) {
+    removeTyping();
+    addMessage('bot', 'Connection error. Please try again.', null);
+  }
+
+  isLoading = false;
+  document.getElementById('sendBtn').disabled = false;
+  input.focus();
+}
+</script>
+</body>
+</html>
