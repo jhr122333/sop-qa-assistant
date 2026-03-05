@@ -10,9 +10,6 @@
 | Version | Link | 설명 |
 |--------|------|------|
 | 🎯 데모 (바로 실행) | [sop-qa-demo.html](https://jhr122333.github.io/sop-qa-assistant/sop-qa-demo.html) | API 키 불필요 |
-| 🇰🇷 한국어 (API 연동) | [sop-qa-assistant-ko.html](https://jhr122333.github.io/sop-qa-assistant/sop-qa-assistant-ko.html) | Claude API 키 필요 |
-| 🇺🇸 English (API 연동) | [sop-qa-assistant-en.html](https://jhr122333.github.io/sop-qa-assistant/sop-qa-assistant-en.html) | Claude API key required |
-
 ---
 
 ## 📌 프로젝트 개요
