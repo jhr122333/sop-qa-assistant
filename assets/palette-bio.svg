@@ -1,0 +1,37 @@
+<svg width="1200" height="800" viewBox="0 0 1200 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="800" rx="36" fill="#F2F8F7"/>
+  <rect x="48" y="48" width="1104" height="704" rx="30" fill="#FFFFFF"/>
+  <rect x="48" y="48" width="1104" height="180" rx="30" fill="url(#hero)"/>
+  <text x="84" y="114" fill="white" font-size="22" font-family="Arial, sans-serif" font-weight="700">OPTION B · Bio / Cleanroom</text>
+  <text x="84" y="178" fill="white" font-size="54" font-family="Arial, sans-serif" font-weight="700">Deep Teal + Green</text>
+  <text x="84" y="224" fill="#D8F5EC" font-size="24" font-family="Arial, sans-serif">바이오, 실험실, 청정구역 무드가 더 강한 차별화 톤</text>
+
+  <rect x="84" y="282" width="210" height="168" rx="24" fill="#0F3B36"/>
+  <rect x="314" y="282" width="210" height="168" rx="24" fill="#1F7A6B"/>
+  <rect x="544" y="282" width="210" height="168" rx="24" fill="#DFF4EE"/>
+  <rect x="774" y="282" width="210" height="168" rx="24" fill="#F7FBFA" stroke="#CCE2DC"/>
+
+  <text x="84" y="484" fill="#17312C" font-size="22" font-family="Arial, sans-serif" font-weight="700">추천 사용처</text>
+  <text x="84" y="520" fill="#5B746E" font-size="22" font-family="Arial, sans-serif">바이오, 클린룸, 실험실, 메디컬 워크플로우</text>
+
+  <rect x="84" y="566" width="474" height="126" rx="24" fill="#F7FBFA" stroke="#D4E6E1"/>
+  <text x="114" y="616" fill="#17312C" font-size="28" font-family="Arial, sans-serif" font-weight="700">장점</text>
+  <text x="114" y="654" fill="#5B746E" font-size="22" font-family="Arial, sans-serif">기존 B2B 블루보다 덜 평범하고 바이오 느낌이 더 선명함</text>
+
+  <rect x="592" y="566" width="474" height="126" rx="24" fill="#EAF8F4" stroke="#C6E6DC"/>
+  <text x="622" y="616" fill="#0F4D43" font-size="28" font-family="Arial, sans-serif" font-weight="700">인상</text>
+  <text x="622" y="654" fill="#40776C" font-size="22" font-family="Arial, sans-serif">“클린룸 / 바이오 운영 시스템” 같은 느낌</text>
+
+  <text x="115" y="340" fill="white" font-size="24" font-family="Arial, sans-serif" font-weight="700">#0F3B36</text>
+  <text x="345" y="340" fill="white" font-size="24" font-family="Arial, sans-serif" font-weight="700">#1F7A6B</text>
+  <text x="575" y="340" fill="#0F4D43" font-size="24" font-family="Arial, sans-serif" font-weight="700">#DFF4EE</text>
+  <text x="805" y="340" fill="#4D655F" font-size="24" font-family="Arial, sans-serif" font-weight="700">#F7FBFA</text>
+
+  <defs>
+    <linearGradient id="hero" x1="48" y1="48" x2="981" y2="286" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0C312E"/>
+      <stop offset="0.52" stop-color="#1F7A6B"/>
+      <stop offset="1" stop-color="#8BD1C0"/>
+    </linearGradient>
+  </defs>
+</svg>

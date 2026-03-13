@@ -7,9 +7,20 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
+        :root {
+            --bg: #f3f5f7;
+            --panel: #ffffff;
+            --ink: #1f2937;
+            --muted: #6b7280;
+            --line: #e5e7eb;
+            --blue: #2159b5;
+            --blue-soft: #dce7ff;
+            --blue-faint: #eef4ff;
+        }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans KR', sans-serif;
-            background: #f0f4fa;
+            background: var(--bg);
             height: 100vh;
             display: flex;
             flex-direction: column;
@@ -18,35 +29,36 @@
 
         /* ── 헤더 ── */
         .header {
-            background: white;
-            color: #1a202c;
+            background: rgba(255,255,255,0.92);
+            color: var(--ink);
             padding: 0 24px;
             height: 60px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            border-bottom: 1px solid #e2e8f0;
+            border-bottom: 1px solid var(--line);
             flex-shrink: 0;
+            backdrop-filter: blur(8px);
         }
 
         .header-left { display: flex; align-items: center; gap: 12px; }
 
         .header-logo {
             width: 36px; height: 36px;
-            background: linear-gradient(135deg, #2e72d2, #63b3ed);
+            background: linear-gradient(135deg, var(--blue), #6d95e8);
             border-radius: 10px;
             display: flex; align-items: center; justify-content: center;
             font-size: 1.1rem;
             flex-shrink: 0;
         }
 
-        .header h1 { font-size: 0.98rem; font-weight: 700; letter-spacing: -0.02em; color: #1a202c; }
-        .header .subtitle { font-size: 0.7rem; color: #718096; margin-top: 1px; }
+        .header h1 { font-size: 0.98rem; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); }
+        .header .subtitle { font-size: 0.7rem; color: var(--muted); margin-top: 1px; }
 
         .demo-badge {
             display: flex; align-items: center; gap: 8px;
-            background: #f0f4fa;
-            border: 1px solid #e2e8f0;
+            background: var(--blue-faint);
+            border: 1px solid var(--blue-soft);
             border-radius: 20px;
             padding: 5px 14px;
             font-size: 0.75rem;
@@ -66,7 +78,7 @@
             justify-content: center;
             padding: 7px 16px;
             border-radius: 20px;
-            background: #2e72d2;
+            background: var(--blue);
             color: white;
             text-decoration: none;
             font-size: 0.78rem;
@@ -91,8 +103,8 @@
         /* ── 사이드바 ── */
         .sidebar {
             width: 260px;
-            background: white;
-            border-right: 1px solid #e2e8f0;
+            background: var(--panel);
+            border-right: 1px solid var(--line);
             display: flex;
             flex-direction: column;
             flex-shrink: 0;
@@ -100,13 +112,13 @@
 
         .sidebar-header {
             padding: 16px 16px 12px;
-            border-bottom: 1px solid #f0f4fa;
+            border-bottom: 1px solid #f1f3f6;
         }
 
         .sidebar-header h2 {
             font-size: 0.68rem;
             font-weight: 700;
-            color: #a0aec0;
+            color: #9aa3af;
             text-transform: uppercase;
             letter-spacing: 0.08em;
         }
@@ -121,11 +133,11 @@
             transition: all 0.15s;
         }
 
-        .doc-item:hover { background: #f7fafc; }
+        .doc-item:hover { background: #f8fafc; }
 
         .doc-item.active {
-            background: #ebf4ff;
-            border-left-color: #2e72d2;
+            background: var(--blue-faint);
+            border-left-color: var(--blue);
         }
 
         .doc-badge {
@@ -147,9 +159,9 @@
 
         /* 문서 미리보기 */
         .doc-preview {
-            border-top: 1px solid #e2e8f0;
+            border-top: 1px solid var(--line);
             padding: 14px 16px;
-            background: #f7fafc;
+            background: #fafbfd;
             max-height: 200px;
             overflow-y: auto;
             display: none;
@@ -165,8 +177,8 @@
         /* 채팅 상단 바 */
         .chat-header {
             padding: 14px 20px;
-            background: white;
-            border-bottom: 1px solid #e2e8f0;
+            background: var(--panel);
+            border-bottom: 1px solid var(--line);
             display: flex;
             align-items: center;
             gap: 12px;
@@ -175,12 +187,12 @@
 
         .chat-avatar {
             width: 40px; height: 40px;
-            background: linear-gradient(135deg, #2e72d2 0%, #63b3ed 100%);
+            background: linear-gradient(135deg, var(--blue) 0%, #6d95e8 100%);
             border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
             font-size: 1.15rem;
             flex-shrink: 0;
-            box-shadow: 0 2px 8px rgba(46,114,210,0.28);
+            box-shadow: 0 2px 8px rgba(33,89,181,0.22);
         }
 
         .chat-header h2 { font-size: 0.92rem; font-weight: 700; color: #1a202c; }
@@ -190,8 +202,8 @@
         .model-chip {
             margin-left: auto;
             display: flex; align-items: center; gap: 6px;
-            background: #f0f4fa;
-            border: 1px solid #e2e8f0;
+            background: var(--blue-faint);
+            border: 1px solid var(--blue-soft);
             border-radius: 20px;
             padding: 5px 12px;
             font-size: 0.71rem;
@@ -209,7 +221,7 @@
             display: flex;
             flex-direction: column;
             gap: 16px;
-            background: #f7f9fc;
+            background: #f7f8fa;
         }
 
         /* 웰컴 카드 */
@@ -217,7 +229,7 @@
             background: white;
             border-radius: 20px;
             padding: 32px 28px;
-            border: 1px solid #e2e8f0;
+            border: 1px solid var(--line);
             max-width: 560px;
             align-self: center;
             text-align: center;
@@ -226,12 +238,12 @@
 
         .welcome-icon {
             width: 64px; height: 64px;
-            background: linear-gradient(135deg, #2e72d2, #63b3ed);
+            background: linear-gradient(135deg, var(--blue), #6d95e8);
             border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
             font-size: 1.8rem;
             margin: 0 auto 16px;
-            box-shadow: 0 4px 14px rgba(46,114,210,0.3);
+            box-shadow: 0 4px 14px rgba(33,89,181,0.20);
         }
 
         .welcome-card h3 { font-size: 1.1rem; font-weight: 700; color: #1a202c; margin-bottom: 10px; }
@@ -241,8 +253,8 @@
 
         .sample-q {
             padding: 10px 16px;
-            background: #f7f9fc;
-            border: 1px solid #e2e8f0;
+            background: #f8fafc;
+            border: 1px solid var(--line);
             border-radius: 12px;
             font-size: 0.81rem;
             color: #4a5568;
@@ -255,9 +267,9 @@
         }
 
         .sample-q:hover {
-            background: #ebf4ff;
-            border-color: #2e72d2;
-            color: #1e40af;
+            background: var(--blue-faint);
+            border-color: var(--blue);
+            color: var(--blue);
             transform: translateX(3px);
         }
 
