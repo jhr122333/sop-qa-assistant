@@ -340,7 +340,7 @@
             <div class="topbar-actions">
                 <span class="pill">Mock Data Preview</span>
                 <span class="pill" id="lastUpdated">Last updated</span>
-                <a class="ghost-link" href="/sop-qa-demo.html">챗봇으로 돌아가기</a>
+                <a class="ghost-link" href="./sop-qa-demo.html">챗봇으로 돌아가기</a>
             </div>
         </header>
 
@@ -427,7 +427,7 @@
 
     <script>
         async function loadDashboardData() {
-            const liveRes = await fetch('/api/dashboard').catch(() => null);
+            const liveRes = await fetch('./api/dashboard').catch(() => null);
             if (liveRes && liveRes.ok) {
                 const liveData = await liveRes.json();
                 if (liveData.mode !== 'empty') return liveData;

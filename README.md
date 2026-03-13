@@ -1,92 +1,53 @@
-# 🤖 AX 학습 허브 · AI 전환 역량 개발
+# SOP Q&A Assistant
 
-> 30문항 역량 진단으로 내 AX 수준을 파악하고, 초급·중급·고급 맞춤 카드뉴스로 빠르게 성장하세요.
+문서 기반 제약·바이오 SOP Q&A 웹앱입니다.  
+사용자는 SOP를 검색해 근거와 함께 답변을 받고, 운영자는 대시보드에서 질문 로그와 문서 커버리지를 확인할 수 있습니다.
 
-**🔗 Live Demo → [https://jhr122333.github.io/ax-checklist/](https://jhr122333.github.io/ax-checklist/)**
+## 바로 보기
 
----
+- 메인 페이지: [https://jhr122333.github.io/sop-qa-assistant/](https://jhr122333.github.io/sop-qa-assistant/)
+- 챗봇: [https://jhr122333.github.io/sop-qa-assistant/sop-qa-demo.html](https://jhr122333.github.io/sop-qa-assistant/sop-qa-demo.html)
+- 관리자 대시보드: [https://jhr122333.github.io/sop-qa-assistant/admin-dashboard.html](https://jhr122333.github.io/sop-qa-assistant/admin-dashboard.html)
 
-## 📌 프로젝트 개요
+## 포함된 화면
 
-사내 AX(AI Transformation) 교육을 위한 자가 진단 + 맞춤 학습 콘텐츠 플랫폼입니다.
+- `index.html`: 제품 소개와 진입 화면
+- `sop-qa-demo.html`: 사용자용 SOP Q&A 챗봇
+- `admin-dashboard.html`: 운영자용 KPI / 리뷰 큐 / 문서 상태 화면
 
-"우리 팀 AI 수준이 어디쯤일까?"라는 현장의 질문에서 출발했습니다. 직원 스스로 역량을 진단하고, 레벨에 맞는 카드뉴스로 바로 연결되는 구조로 설계했습니다.
+## 현재 기능
 
----
+- 구조화된 SOP 문서 10종 검색
+- OpenAI API 연동 서버 경유 호출
+- 검색 디버그와 출처 표시
+- 질문 로그 저장
+- 관리자 대시보드 live data 우선 / mock fallback
 
-## ✨ 주요 기능
-
-| 기능 | 설명 |
-|---|---|
-| 📋 역량 진단 체크리스트 | 30문항 · 4개 영역 (AI기초 · 실무 · 전략 · 윤리) |
-| 🎯 자동 레벨 판정 | 점수 기반 초급 · 중급 · 고급 자동 분류 |
-| 📰 레벨별 맞춤 카드뉴스 | 총 27장 · 레벨별 8~10장 구성 |
-| 🔗 바로 이동 | 진단 완료 후 맞춤 카드뉴스로 자동 연결 |
-
----
-
-## 🎓 레벨별 카드뉴스 구성
-
-### 🌱 초급 (BEGINNER) · 8장
-AI를 처음 접하는 분들을 위한 기초 개념 정리와 실전 팁
-- AI · ML · DL 개념
-- 생성형 AI 비교
-- 프롬프트 입문
-- 30일 로드맵
-
-### 🔥 중급 (INTERMEDIATE) · 9장
-업무 자동화와 팀 AI 문화 확산을 이끄는 역량 강화
-- 프롬프트 고도화
-- 업무 자동화
-- AI 워크플로우
-- 팀 확산 전략
-
-### 🏆 고급 (ADVANCED) · 10장
-조직의 AX 전략 수립과 혁신을 선도하는 리더십
-- AX 전략 프레임
-- AI 에이전트
-- 변화관리
-- AI 윤리 · 보안
-
----
-
-## 🛠 기술 스택
-
-- HTML · CSS · JavaScript (Vanilla)
-- GitHub Pages (무료 배포)
-- 외부 라이브러리 없음 · 단일 파일 구조
-
----
-
-## 📂 파일 구조
-
-```
-ax-checklist/
-├── index.html        # 메인 페이지 (진단 + 카드뉴스 통합)
-└── README.md
-```
-
----
-
-## 🚀 로컬 실행 방법
-
-별도 설치 없이 `index.html`을 브라우저에서 열면 바로 실행됩니다.
+## 로컬 실행
 
 ```bash
-git clone https://github.com/jhr122333/ax-checklist.git
-cd ax-checklist
-open index.html
+npm start
 ```
 
----
+브라우저에서 `http://127.0.0.1:3000` 접속
 
-## 💡 AX 포트폴리오 맥락
+## 파일 구조
 
-이 프로젝트는 **"현업 사용자 대상 AX 활용 교육 및 가이드 제작"** 을 직접 구현한 PoC입니다.
+```text
+sop-qa-assistant/
+├── index.html
+├── sop-qa-demo.html
+├── admin-dashboard.html
+├── server.mjs
+├── package.json
+├── data/
+│   ├── documents/sop-documents.json
+│   ├── dashboard/dashboard-mock.json
+│   └── runtime/chat-log.json
+└── docs/
+```
 
-- **문제 인식** → 직원마다 AI 수준이 달라 일괄 교육이 비효율적
-- **해결 방향** → 자가 진단 후 레벨별 맞춤 콘텐츠 제공
-- **확장 가능성** → Google Analytics 연동으로 참여 데이터 수집 · 부서별 AX 수준 모니터링
+## 참고
 
----
-
+- GitHub Pages에서는 정적 화면만 동작합니다.
+- `/api/chat`, `/api/dashboard` 같은 서버 기능은 로컬 서버 또는 별도 백엔드 배포가 필요합니다.
