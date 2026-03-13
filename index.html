@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOP Q&A Assistant</title>
+    <style>
+        :root {
+            --navy: #12325c;
+            --blue: #2159b5;
+            --sky: #7eacec;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans KR", sans-serif;
+            color: white;
+            background: linear-gradient(160deg, #1c4785 0%, #2e72d2 52%, #6baff5 100%);
+            padding: 40px 24px;
+        }
+
+        /* 장식 원형 */
+        body::before, body::after {
+            content: "";
+            position: fixed;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        body::before {
+            width: 480px; height: 480px;
+            top: -160px; right: -160px;
+            background: rgba(160, 205, 255, 0.22);
+        }
+        body::after {
+            width: 320px; height: 320px;
+            bottom: -80px; left: -80px;
+            background: rgba(80, 150, 240, 0.20);
+        }
+
+        .landing {
+            position: relative;
+            z-index: 1;
+            max-width: 720px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            padding: 8px 16px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            font-size: 0.76rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            margin-bottom: 28px;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 5vw, 3.4rem);
+            line-height: 1.08;
+            letter-spacing: -0.04em;
+            margin-bottom: 20px;
+        }
+
+        h1 em {
+            font-style: normal;
+            background: linear-gradient(90deg, #a8cbf5, #c9f3df);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .sub {
+            font-size: 1.05rem;
+            color: rgba(255, 255, 255, 0.78);
+            line-height: 1.75;
+            max-width: 560px;
+            margin: 0 auto 48px;
+        }
+
+        /* 기능 소개 3개 */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            margin-bottom: 52px;
+        }
+
+        .feat {
+            padding: 20px 16px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.09);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            text-align: left;
+        }
+
+        .feat-icon {
+            font-size: 1.6rem;
+            margin-bottom: 10px;
+        }
+
+        .feat h3 {
+            font-size: 0.88rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .feat p {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.66);
+            line-height: 1.6;
+        }
+
+        /* CTA */
+        .cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0 36px;
+            height: 58px;
+            border-radius: 18px;
+            background: white;
+            color: var(--navy);
+            font-size: 1rem;
+            font-weight: 800;
+            text-decoration: none;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.20);
+            transition: transform 0.18s ease, box-shadow 0.18s ease;
+        }
+
+        .cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 24px 56px rgba(0, 0, 0, 0.28);
+        }
+
+        .cta svg {
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 600px) {
+            .features { grid-template-columns: 1fr; }
+            h1 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="landing">
+        <div class="eyebrow">Pharma AX · SOP Grounded AI</div>
+
+        <h1>SOP 질문,<br><em>찾는 시간 없이</em><br>바로 답 받으세요</h1>
+
+        <p class="sub">
+            제약·바이오 현장의 절차 질의, 기준 확인, 문서 탐색을 AI가 대신합니다.<br>
+            문서 근거와 출처를 함께 제공해 신뢰할 수 있는 답변을 드립니다.
+        </p>
+
+        <div class="features">
+            <div class="feat">
+                <div class="feat-icon">🔍</div>
+                <h3>문서 기반 정확한 답변</h3>
+                <p>SOP corpus를 실시간 검색해 관련 섹션을 근거로 답합니다.</p>
+            </div>
+            <div class="feat">
+                <div class="feat-icon">📋</div>
+                <h3>출처·근거 투명 공개</h3>
+                <p>어떤 문서의 어느 부분을 참조했는지 검색 디버그와 함께 표시합니다.</p>
+            </div>
+            <div class="feat">
+                <div class="feat-icon">📊</div>
+                <h3>운영 대시보드 내장</h3>
+                <p>질문 로그, 문서 커버리지, 리뷰 큐를 한 화면에서 모니터링합니다.</p>
+            </div>
+        </div>
+
+        <a class="cta" href="/sop-qa-demo.html">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+            </svg>
+            SOP Q&amp;A 지금 시작하기
+        </a>
+    </div>
+</body>
+</html>

@@ -1,67 +1,92 @@
-# 🔬 SOP Q&A Assistant
+# 🤖 AX 학습 허브 · AI 전환 역량 개발
 
-> AI-powered pharmaceutical document Q&A chatbot
-> 제약·바이오 SOP 문서 기반 AI Q&A 챗봇
+> 30문항 역량 진단으로 내 AX 수준을 파악하고, 초급·중급·고급 맞춤 카드뉴스로 빠르게 성장하세요.
 
----
+**🔗 Live Demo → [https://jhr122333.github.io/ax-checklist/](https://jhr122333.github.io/ax-checklist/)**
 
-## 🚀 Live Demo
-
-| Version | Link | 설명 |
-|--------|------|------|
-| 🎯 데모  | [sop-qa-demo.html](https://jhr122333.github.io/sop-qa-assistant/sop-qa-demo.html) | API 키 불필요 |
 ---
 
 ## 📌 프로젝트 개요
 
-제약·바이오 현장에서 SOP 문서 관련 내용을 검색하고 답변을 확인하는 Q&A 챗봇 데모입니다.
+사내 AX(AI Transformation) 교육을 위한 자가 진단 + 맞춤 학습 콘텐츠 플랫폼입니다.
 
-SOP 관련 질문을 입력하면 AI가 관련 문서를 참조해 정확한 답변과 출처 섹션을 함께 제공합니다.
+"우리 팀 AI 수준이 어디쯤일까?"라는 현장의 질문에서 출발했습니다. 직원 스스로 역량을 진단하고, 레벨에 맞는 카드뉴스로 바로 연결되는 구조로 설계했습니다.
 
 ---
 
 ## ✨ 주요 기능
 
-- 📄 SOP 문서 3종 내장 (GMP 세척 검증 / 배치 기록 검토 / 환경 모니터링)
-- 💬 문서 기반 AI 답변 생성 (출처 섹션 자동 표시)
-- 🔍 샘플 질문으로 빠른 시작
-- 🎯 데모 버전: API 없이 바로 실행 가능
+| 기능 | 설명 |
+|---|---|
+| 📋 역량 진단 체크리스트 | 30문항 · 4개 영역 (AI기초 · 실무 · 전략 · 윤리) |
+| 🎯 자동 레벨 판정 | 점수 기반 초급 · 중급 · 고급 자동 분류 |
+| 📰 레벨별 맞춤 카드뉴스 | 총 27장 · 레벨별 8~10장 구성 |
+| 🔗 바로 이동 | 진단 완료 후 맞춤 카드뉴스로 자동 연결 |
+
+---
+
+## 🎓 레벨별 카드뉴스 구성
+
+### 🌱 초급 (BEGINNER) · 8장
+AI를 처음 접하는 분들을 위한 기초 개념 정리와 실전 팁
+- AI · ML · DL 개념
+- 생성형 AI 비교
+- 프롬프트 입문
+- 30일 로드맵
+
+### 🔥 중급 (INTERMEDIATE) · 9장
+업무 자동화와 팀 AI 문화 확산을 이끄는 역량 강화
+- 프롬프트 고도화
+- 업무 자동화
+- AI 워크플로우
+- 팀 확산 전략
+
+### 🏆 고급 (ADVANCED) · 10장
+조직의 AX 전략 수립과 혁신을 선도하는 리더십
+- AX 전략 프레임
+- AI 에이전트
+- 변화관리
+- AI 윤리 · 보안
 
 ---
 
 ## 🛠 기술 스택
 
-- HTML / CSS / JavaScript (Single Page, 빌드 도구 없음)
-- Claude API (`claude-sonnet-4-0`) 연동
-- GitHub Pages 배포
-
----
-
-## 💡 기획 배경
-
-> **AI 평가 경험 × 품질 프레임워크 × 제약 도메인**
-
-쿠팡에서 AI 콘텐츠 품질 평가(accuracy, conciseness) 업무를 하며,
-품질 평가 프레임워크(정확성·자연스러움·일관성)를 AI 평가에 적용하는 방식을 연구해왔습니다.
-
-이 프로젝트는 그 경험을 제약·바이오 AX(AI Transformation) 환경에 적용한 PoC입니다.
-SOP 문서처럼 **정확성이 중요한 문서**일수록, AI 답변의 품질 기준과 출처 명시가 핵심이라는 점에서 출발했습니다.
+- HTML · CSS · JavaScript (Vanilla)
+- GitHub Pages (무료 배포)
+- 외부 라이브러리 없음 · 단일 파일 구조
 
 ---
 
 ## 📂 파일 구조
 
 ```
-sop-qa-assistant/
-├── sop-qa-demo.html          # 데모 버전 (API 불필요, 바로 실행)
-├── sop-qa-assistant-ko.html  # 한국어 버전 (Claude API 연동)
-├── sop-qa-assistant-en.html  # 영어 버전 (Claude API 연동)
+ax-checklist/
+├── index.html        # 메인 페이지 (진단 + 카드뉴스 통합)
 └── README.md
 ```
 
 ---
 
-## 👤 만든 사람
+## 🚀 로컬 실행 방법
 
-**장혜리 Hyeri Jang**
-AI Content Specialist | Translation Studies | AX Portfolio
+별도 설치 없이 `index.html`을 브라우저에서 열면 바로 실행됩니다.
+
+```bash
+git clone https://github.com/jhr122333/ax-checklist.git
+cd ax-checklist
+open index.html
+```
+
+---
+
+## 💡 AX 포트폴리오 맥락
+
+이 프로젝트는 **"현업 사용자 대상 AX 활용 교육 및 가이드 제작"** 을 직접 구현한 PoC입니다.
+
+- **문제 인식** → 직원마다 AI 수준이 달라 일괄 교육이 비효율적
+- **해결 방향** → 자가 진단 후 레벨별 맞춤 콘텐츠 제공
+- **확장 가능성** → Google Analytics 연동으로 참여 데이터 수집 · 부서별 AX 수준 모니터링
+
+---
+

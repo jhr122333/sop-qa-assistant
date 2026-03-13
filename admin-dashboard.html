@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOP Q&A Admin Dashboard</title>
+    <style>
+        :root {
+            --bg: #f3f6fb;
+            --panel: #ffffff;
+            --ink: #172334;
+            --muted: #6c7a8c;
+            --line: #d9e2ef;
+            --brand: #2159b5;
+            --brand-soft: #e8f0ff;
+            --good: #1f8f5f;
+            --warn: #d48a18;
+            --bad: #c24646;
+            --navy: #14325c;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans KR", sans-serif;
+            background:
+                radial-gradient(circle at top left, rgba(33, 89, 181, 0.10), transparent 28%),
+                radial-gradient(circle at top right, rgba(20, 50, 92, 0.14), transparent 24%),
+                var(--bg);
+            color: var(--ink);
+            min-height: 100vh;
+        }
+
+        .page {
+            max-width: 1380px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            padding: 20px 24px;
+            border-radius: 24px;
+            background: linear-gradient(135deg, #12325c 0%, #2159b5 58%, #78a4eb 100%);
+            color: white;
+            box-shadow: 0 24px 50px rgba(18, 50, 92, 0.18);
+        }
+
+        .topbar h1 {
+            font-size: 1.5rem;
+            margin-bottom: 6px;
+        }
+
+        .topbar p {
+            color: rgba(255,255,255,0.82);
+            font-size: 0.94rem;
+            line-height: 1.55;
+        }
+
+        .topbar-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        .pill, .ghost-link {
+            border-radius: 999px;
+            padding: 10px 14px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            text-decoration: none;
+            border: 1px solid rgba(255,255,255,0.24);
+        }
+
+        .pill {
+            background: rgba(255,255,255,0.12);
+            color: white;
+        }
+
+        .ghost-link {
+            background: white;
+            color: var(--navy);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 18px;
+            margin-top: 18px;
+        }
+
+        .stack {
+            display: grid;
+            gap: 18px;
+        }
+
+        .panel {
+            background: var(--panel);
+            border: 1px solid var(--line);
+            border-radius: 22px;
+            padding: 20px;
+            box-shadow: 0 14px 32px rgba(28, 52, 84, 0.06);
+        }
+
+        .panel-head {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .panel-title {
+            font-size: 1rem;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+
+        .panel-subtitle {
+            color: var(--muted);
+            font-size: 0.82rem;
+            line-height: 1.5;
+        }
+
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .kpi-card {
+            border-radius: 18px;
+            padding: 16px;
+            background: linear-gradient(180deg, #ffffff 0%, #f7faff 100%);
+            border: 1px solid var(--line);
+        }
+
+        .kpi-label {
+            color: var(--muted);
+            font-size: 0.78rem;
+            margin-bottom: 10px;
+        }
+
+        .kpi-value {
+            font-size: 1.7rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+        }
+
+        .kpi-delta {
+            margin-top: 10px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .up { color: var(--good); }
+        .down { color: var(--bad); }
+        .warn { color: var(--warn); }
+
+        .trend-bars {
+            display: grid;
+            grid-template-columns: repeat(7, minmax(0, 1fr));
+            gap: 10px;
+            align-items: end;
+            height: 180px;
+        }
+
+        .trend-col {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .bar-wrap {
+            width: 100%;
+            height: 132px;
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .bar {
+            width: 100%;
+            border-radius: 16px 16px 8px 8px;
+            background: linear-gradient(180deg, #88b1f0 0%, #2159b5 100%);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.35);
+        }
+
+        .bar-note {
+            font-size: 0.74rem;
+            color: var(--muted);
+        }
+
+        .score-list {
+            display: grid;
+            gap: 12px;
+        }
+
+        .score-row {
+            display: grid;
+            grid-template-columns: 120px 1fr 58px;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .score-row strong {
+            font-size: 0.82rem;
+        }
+
+        .meter {
+            height: 12px;
+            border-radius: 999px;
+            background: #edf2f8;
+            overflow: hidden;
+        }
+
+        .meter > span {
+            display: block;
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(90deg, #2159b5 0%, #79a4ea 100%);
+        }
+
+        .score-num {
+            text-align: right;
+            font-size: 0.8rem;
+            font-weight: 800;
+        }
+
+        .doc-list, .queue-list {
+            display: grid;
+            gap: 10px;
+        }
+
+        .doc-row, .queue-row {
+            padding: 14px 16px;
+            border-radius: 16px;
+            border: 1px solid var(--line);
+            background: #fbfcfe;
+        }
+
+        .doc-top, .queue-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 6px;
+        }
+
+        .doc-name, .queue-title {
+            font-size: 0.87rem;
+            font-weight: 700;
+        }
+
+        .doc-meta, .queue-meta {
+            font-size: 0.76rem;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 999px;
+            padding: 5px 10px;
+            font-size: 0.72rem;
+            font-weight: 800;
+        }
+
+        .badge-blue { background: #e8f0ff; color: var(--brand); }
+        .badge-green { background: #e6f7ee; color: var(--good); }
+        .badge-amber { background: #fff3df; color: var(--warn); }
+        .badge-red { background: #fde7e7; color: var(--bad); }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 12px 10px;
+            border-bottom: 1px solid #eef3f8;
+            font-size: 0.8rem;
+            vertical-align: top;
+        }
+
+        th {
+            color: var(--muted);
+            font-size: 0.74rem;
+            font-weight: 800;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+        }
+
+        td strong {
+            display: block;
+            margin-bottom: 4px;
+            font-size: 0.82rem;
+        }
+
+        .mini-note {
+            margin-top: 12px;
+            padding: 12px 14px;
+            border-radius: 16px;
+            background: var(--brand-soft);
+            color: #28466f;
+            font-size: 0.78rem;
+            line-height: 1.55;
+        }
+
+        @media (max-width: 1080px) {
+            .grid { grid-template-columns: 1fr; }
+            .kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        }
+
+        @media (max-width: 700px) {
+            .page { padding: 14px; }
+            .topbar { padding: 18px; border-radius: 18px; }
+            .kpi-grid { grid-template-columns: 1fr; }
+            .score-row { grid-template-columns: 1fr; }
+            .trend-bars { gap: 6px; }
+            th:nth-child(4), td:nth-child(4) { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <header class="topbar">
+            <div>
+                <h1>운영 관리자 대시보드</h1>
+                <p>질문량, 답변 품질, 문서 커버리지, 리뷰 큐를 한 화면에서 보고 개선 우선순위를 잡는 관리자용 화면입니다.</p>
+            </div>
+            <div class="topbar-actions">
+                <span class="pill">Mock Data Preview</span>
+                <span class="pill" id="lastUpdated">Last updated</span>
+                <a class="ghost-link" href="/sop-qa-demo.html">챗봇으로 돌아가기</a>
+            </div>
+        </header>
+
+        <div class="grid">
+            <div class="stack">
+                <section class="panel">
+                    <div class="panel-head">
+                        <div>
+                            <div class="panel-title">Executive Overview</div>
+                            <div class="panel-subtitle">운영자가 먼저 확인하는 핵심 지표입니다. 다음 단계에서는 실사용 로그와 연결됩니다.</div>
+                        </div>
+                    </div>
+                    <div class="kpi-grid" id="kpiGrid"></div>
+                </section>
+
+                <section class="panel">
+                    <div class="panel-head">
+                        <div>
+                            <div class="panel-title">질문량 추이</div>
+                            <div class="panel-subtitle">최근 7일 질문량입니다. 일별 변동과 재질문 구간을 빠르게 볼 수 있습니다.</div>
+                        </div>
+                        <span class="badge badge-blue">최근 7일</span>
+                    </div>
+                    <div class="trend-bars" id="trendBars"></div>
+                </section>
+
+                <section class="panel">
+                    <div class="panel-head">
+                        <div>
+                            <div class="panel-title">리뷰 큐</div>
+                            <div class="panel-subtitle">부정확 가능성이 있거나 근거가 약한 질문을 우선 확인하는 영역입니다.</div>
+                        </div>
+                        <span class="badge badge-amber" id="queueCountBadge">0건</span>
+                    </div>
+                    <div class="queue-list" id="queueList"></div>
+                </section>
+            </div>
+
+            <div class="stack">
+                <section class="panel">
+                    <div class="panel-head">
+                        <div>
+                            <div class="panel-title">품질 점수</div>
+                            <div class="panel-subtitle">현재는 mock 값이지만, 구조는 live metrics와 바로 연결 가능하게 만들어 두었습니다.</div>
+                        </div>
+                        <span class="badge badge-green">Ready for Live Data</span>
+                    </div>
+                    <div class="score-list" id="scoreList"></div>
+                    <div class="mini-note">추천 운영 루틴: 부정 피드백 증가 → 리뷰 큐 확인 → retrieval debug 확인 → 문서 추가 또는 prompt 조정</div>
+                </section>
+
+                <section class="panel">
+                    <div class="panel-head">
+                        <div>
+                            <div class="panel-title">문서 커버리지</div>
+                            <div class="panel-subtitle">어떤 문서가 많이 인용되고, 어떤 문서가 아직 검색되지 않는지 보는 영역입니다.</div>
+                        </div>
+                    </div>
+                    <div class="doc-list" id="docList"></div>
+                </section>
+
+                <section class="panel">
+                    <div class="panel-head">
+                        <div>
+                            <div class="panel-title">문서 상태 / 인덱싱</div>
+                            <div class="panel-subtitle">버전 관리와 인덱싱 상태를 추적하기 위한 관리자 테이블입니다.</div>
+                        </div>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Document</th>
+                                <th>Status</th>
+                                <th>Version</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="indexTableBody"></tbody>
+                    </table>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function loadDashboardData() {
+            const liveRes = await fetch('/api/dashboard').catch(() => null);
+            if (liveRes && liveRes.ok) {
+                const liveData = await liveRes.json();
+                if (liveData.mode !== 'empty') return liveData;
+            }
+
+            const mockRes = await fetch('./data/dashboard/dashboard-mock.json');
+            if (!mockRes.ok) throw new Error('대시보드 데이터를 불러오지 못했습니다.');
+            return mockRes.json();
+        }
+
+        function badgeClass(type) {
+            if (type === 'good' || type === 'indexed') return 'badge badge-green';
+            if (type === 'warn' || type === 'review') return 'badge badge-amber';
+            if (type === 'bad' || type === 'error') return 'badge badge-red';
+            return 'badge badge-blue';
+        }
+
+        function renderKpis(items) {
+            const root = document.getElementById('kpiGrid');
+            root.innerHTML = items.map(item => `
+                <div class="kpi-card">
+                    <div class="kpi-label">${item.label}</div>
+                    <div class="kpi-value">${item.value}</div>
+                    <div class="kpi-delta ${item.deltaTone}">${item.delta}</div>
+                </div>
+            `).join('');
+        }
+
+        function renderTrends(items) {
+            const max = Math.max(...items.map(item => item.value), 1);
+            document.getElementById('trendBars').innerHTML = items.map(item => `
+                <div class="trend-col">
+                    <div class="bar-wrap">
+                        <div class="bar" style="height:${(item.value / max) * 100}%;"></div>
+                    </div>
+                    <strong>${item.value}</strong>
+                    <div class="bar-note">${item.day}</div>
+                </div>
+            `).join('');
+        }
+
+        function renderScores(items) {
+            document.getElementById('scoreList').innerHTML = items.map(item => `
+                <div class="score-row">
+                    <strong>${item.label}</strong>
+                    <div class="meter"><span style="width:${item.value}%;"></span></div>
+                    <div class="score-num">${item.value}%</div>
+                </div>
+            `).join('');
+        }
+
+        function renderDocs(items) {
+            document.getElementById('docList').innerHTML = items.map(item => `
+                <div class="doc-row">
+                    <div class="doc-top">
+                        <div class="doc-name">${item.name}</div>
+                        <span class="${badgeClass(item.tone)}">${item.badge}</span>
+                    </div>
+                    <div class="doc-meta">인용 ${item.citations}회 · 실패 질문 ${item.failures}건 · 최신 버전 ${item.version}</div>
+                </div>
+            `).join('');
+        }
+
+        function renderQueue(items) {
+            document.getElementById('queueCountBadge').textContent = `${items.length}건`;
+            document.getElementById('queueList').innerHTML = items.map(item => `
+                <div class="queue-row">
+                    <div class="queue-top">
+                        <div class="queue-title">${item.question}</div>
+                        <span class="${badgeClass(item.severity)}">${item.status}</span>
+                    </div>
+                    <div class="queue-meta">${item.meta}</div>
+                </div>
+            `).join('');
+        }
+
+        function renderIndexTable(items) {
+            document.getElementById('indexTableBody').innerHTML = items.map(item => `
+                <tr>
+                    <td>
+                        <strong>${item.documentId}</strong>
+                        ${item.title}
+                    </td>
+                    <td><span class="${badgeClass(item.stateTone)}">${item.state}</span></td>
+                    <td>${item.version}</td>
+                    <td>${item.nextAction}</td>
+                </tr>
+            `).join('');
+        }
+
+        async function init() {
+            try {
+                const data = await loadDashboardData();
+                renderKpis(data.kpis);
+                renderTrends(data.dailyQuestions);
+                renderScores(data.qualityScores);
+                renderDocs(data.documentCoverage);
+                renderQueue(data.reviewQueue);
+                renderIndexTable(data.indexStatus);
+                document.getElementById('lastUpdated').textContent = `Last updated ${data.lastUpdated}`;
+                const modeBadge = document.querySelector('.pill');
+                modeBadge.textContent = data.mode === 'live' ? 'Live Data' : 'Mock Data Preview';
+            } catch (error) {
+                console.error(error);
+                document.getElementById('kpiGrid').innerHTML = '<div class="kpi-card"><div class="kpi-label">오류</div><div class="kpi-value">--</div><div class="kpi-delta warn">대시보드 데이터 로딩 실패</div></div>';
+            }
+        }
+
+        init();
+    </script>
+</body>
+</html>

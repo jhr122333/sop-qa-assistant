@@ -9,7 +9,7 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans KR', sans-serif;
-            background: #eef2f7;
+            background: #f0f4fa;
             height: 100vh;
             display: flex;
             flex-direction: column;
@@ -18,50 +18,71 @@
 
         /* ── 헤더 ── */
         .header {
-            background: linear-gradient(135deg, #1a365d 0%, #2c5282 100%);
-            color: white;
+            background: white;
+            color: #1a202c;
             padding: 0 24px;
-            height: 58px;
+            height: 60px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+            border-bottom: 1px solid #e2e8f0;
             flex-shrink: 0;
         }
 
         .header-left { display: flex; align-items: center; gap: 12px; }
 
         .header-logo {
-            width: 34px; height: 34px;
-            background: rgba(255,255,255,0.15);
-            border-radius: 8px;
+            width: 36px; height: 36px;
+            background: linear-gradient(135deg, #2e72d2, #63b3ed);
+            border-radius: 10px;
             display: flex; align-items: center; justify-content: center;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
+            flex-shrink: 0;
         }
 
-        .header h1 { font-size: 1rem; font-weight: 700; letter-spacing: -0.02em; }
-        .header .subtitle { font-size: 0.7rem; opacity: 0.65; margin-top: 1px; }
+        .header h1 { font-size: 0.98rem; font-weight: 700; letter-spacing: -0.02em; color: #1a202c; }
+        .header .subtitle { font-size: 0.7rem; color: #718096; margin-top: 1px; }
 
         .demo-badge {
             display: flex; align-items: center; gap: 8px;
-            background: rgba(255,255,255,0.15);
-            border: 1px solid rgba(255,255,255,0.3);
+            background: #f0f4fa;
+            border: 1px solid #e2e8f0;
             border-radius: 20px;
             padding: 5px 14px;
-            font-size: 0.78rem;
+            font-size: 0.75rem;
             font-weight: 600;
+            color: #4a5568;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 7px 16px;
+            border-radius: 20px;
+            background: #2e72d2;
+            color: white;
+            text-decoration: none;
+            font-size: 0.78rem;
+            font-weight: 700;
         }
 
         .demo-dot {
             width: 7px; height: 7px;
             border-radius: 50%;
-            background: #68d391;
+            background: #48bb78;
             animation: pulse-dot 2s infinite;
         }
 
         @keyframes pulse-dot {
             0%, 100% { opacity: 1; }
-            50% { opacity: 0.4; }
+            50% { opacity: 0.3; }
         }
 
         /* ── 메인 레이아웃 ── */
@@ -69,31 +90,31 @@
 
         /* ── 사이드바 ── */
         .sidebar {
-            width: 272px;
+            width: 260px;
             background: white;
-            border-right: 1px solid #dce3ef;
+            border-right: 1px solid #e2e8f0;
             display: flex;
             flex-direction: column;
             flex-shrink: 0;
         }
 
         .sidebar-header {
-            padding: 14px 16px 10px;
-            border-bottom: 1px solid #eef2f7;
+            padding: 16px 16px 12px;
+            border-bottom: 1px solid #f0f4fa;
         }
 
         .sidebar-header h2 {
-            font-size: 0.7rem;
+            font-size: 0.68rem;
             font-weight: 700;
-            color: #718096;
+            color: #a0aec0;
             text-transform: uppercase;
-            letter-spacing: 0.07em;
+            letter-spacing: 0.08em;
         }
 
         .doc-list { overflow-y: auto; flex: 1; }
 
         .doc-item {
-            padding: 12px 16px;
+            padding: 11px 16px;
             cursor: pointer;
             border-bottom: 1px solid #f7fafc;
             border-left: 3px solid transparent;
@@ -104,29 +125,29 @@
 
         .doc-item.active {
             background: #ebf4ff;
-            border-left-color: #3182ce;
+            border-left-color: #2e72d2;
         }
 
         .doc-badge {
             display: inline-block;
             padding: 1px 7px;
             border-radius: 10px;
-            font-size: 0.65rem;
+            font-size: 0.63rem;
             font-weight: 700;
             letter-spacing: 0.04em;
             margin-bottom: 5px;
         }
 
-        .badge-mfg { background: #fff3cd; color: #856404; }
-        .badge-qa  { background: #d1e7dd; color: #0a5c36; }
-        .badge-qc  { background: #cfe2ff; color: #084298; }
+        .badge-mfg { background: #fef3c7; color: #92400e; }
+        .badge-qa  { background: #d1fae5; color: #065f46; }
+        .badge-qc  { background: #dbeafe; color: #1e40af; }
 
-        .doc-name { font-size: 0.82rem; font-weight: 600; color: #2d3748; line-height: 1.35; }
-        .doc-meta { font-size: 0.68rem; color: #a0aec0; margin-top: 3px; }
+        .doc-name { font-size: 0.81rem; font-weight: 600; color: #2d3748; line-height: 1.35; }
+        .doc-meta { font-size: 0.67rem; color: #a0aec0; margin-top: 3px; }
 
         /* 문서 미리보기 */
         .doc-preview {
-            border-top: 1px solid #eef2f7;
+            border-top: 1px solid #e2e8f0;
             padding: 14px 16px;
             background: #f7fafc;
             max-height: 200px;
@@ -136,15 +157,16 @@
 
         .doc-preview-title { font-size: 0.78rem; font-weight: 700; color: #2d3748; margin-bottom: 8px; }
         .section-chips { display: flex; flex-wrap: wrap; gap: 4px; }
-        .section-chip { padding: 2px 8px; background: #e2e8f0; border-radius: 12px; font-size: 0.63rem; color: #4a5568; }
+        .section-chip { padding: 2px 8px; background: #e2e8f0; border-radius: 12px; font-size: 0.62rem; color: #4a5568; }
 
         /* ── 채팅 영역 ── */
         .chat-area { flex: 1; display: flex; flex-direction: column; overflow: hidden; min-width: 0; }
 
+        /* 채팅 상단 바 */
         .chat-header {
-            padding: 12px 20px;
+            padding: 14px 20px;
             background: white;
-            border-bottom: 1px solid #dce3ef;
+            border-bottom: 1px solid #e2e8f0;
             display: flex;
             align-items: center;
             gap: 12px;
@@ -152,12 +174,13 @@
         }
 
         .chat-avatar {
-            width: 38px; height: 38px;
-            background: linear-gradient(135deg, #3182ce, #63b3ed);
+            width: 40px; height: 40px;
+            background: linear-gradient(135deg, #2e72d2 0%, #63b3ed 100%);
             border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             flex-shrink: 0;
+            box-shadow: 0 2px 8px rgba(46,114,210,0.28);
         }
 
         .chat-header h2 { font-size: 0.92rem; font-weight: 700; color: #1a202c; }
@@ -167,136 +190,217 @@
         .model-chip {
             margin-left: auto;
             display: flex; align-items: center; gap: 6px;
-            background: #f7fafc;
+            background: #f0f4fa;
             border: 1px solid #e2e8f0;
             border-radius: 20px;
-            padding: 4px 12px;
-            font-size: 0.72rem;
+            padding: 5px 12px;
+            font-size: 0.71rem;
             color: #4a5568;
-            font-weight: 500;
+            font-weight: 600;
         }
 
-        .model-dot { width: 6px; height: 6px; border-radius: 50%; background: #68d391; }
+        .model-dot { width: 6px; height: 6px; border-radius: 50%; background: #48bb78; }
 
-        /* ── 메시지 ── */
+        /* ── 메시지 영역 ── */
         .messages {
             flex: 1;
             overflow-y: auto;
-            padding: 20px 24px;
+            padding: 24px 28px;
             display: flex;
             flex-direction: column;
-            gap: 14px;
+            gap: 16px;
+            background: #f7f9fc;
         }
 
         /* 웰컴 카드 */
         .welcome-card {
             background: white;
-            border-radius: 14px;
-            padding: 28px;
-            border: 1px solid #dce3ef;
-            max-width: 580px;
+            border-radius: 20px;
+            padding: 32px 28px;
+            border: 1px solid #e2e8f0;
+            max-width: 560px;
             align-self: center;
             text-align: center;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
         }
 
-        .welcome-icon { font-size: 2.5rem; margin-bottom: 10px; }
-        .welcome-card h3 { font-size: 1.05rem; font-weight: 700; color: #1a202c; margin-bottom: 8px; }
-        .welcome-card p  { font-size: 0.82rem; color: #718096; line-height: 1.7; }
+        .welcome-icon {
+            width: 64px; height: 64px;
+            background: linear-gradient(135deg, #2e72d2, #63b3ed);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.8rem;
+            margin: 0 auto 16px;
+            box-shadow: 0 4px 14px rgba(46,114,210,0.3);
+        }
 
-        .sample-qs { margin-top: 18px; display: flex; flex-direction: column; gap: 7px; text-align: left; }
+        .welcome-card h3 { font-size: 1.1rem; font-weight: 700; color: #1a202c; margin-bottom: 10px; }
+        .welcome-card p  { font-size: 0.83rem; color: #718096; line-height: 1.75; }
+
+        .sample-qs { margin-top: 20px; display: flex; flex-direction: column; gap: 8px; text-align: left; }
 
         .sample-q {
-            padding: 9px 14px;
-            background: #f7fafc;
+            padding: 10px 16px;
+            background: #f7f9fc;
             border: 1px solid #e2e8f0;
-            border-radius: 20px;
-            font-size: 0.8rem;
+            border-radius: 12px;
+            font-size: 0.81rem;
             color: #4a5568;
             cursor: pointer;
             transition: all 0.15s;
             text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        .sample-q:hover { background: #ebf4ff; border-color: #3182ce; color: #2c5282; }
+        .sample-q:hover {
+            background: #ebf4ff;
+            border-color: #2e72d2;
+            color: #1e40af;
+            transform: translateX(3px);
+        }
 
         /* 메시지 버블 */
-        .msg { display: flex; gap: 10px; max-width: 82%; }
+        .msg { display: flex; gap: 10px; max-width: 78%; }
         .msg.user { align-self: flex-end; flex-direction: row-reverse; }
         .msg.assistant { align-self: flex-start; }
 
         .msg-avatar {
-            width: 30px; height: 30px;
+            width: 32px; height: 32px;
             border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             flex-shrink: 0;
             margin-top: 2px;
         }
 
-        .msg.user .msg-avatar      { background: #667eea; color: white; }
-        .msg.assistant .msg-avatar { background: #3182ce; color: white; }
+        .msg.user .msg-avatar {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .msg.assistant .msg-avatar {
+            background: linear-gradient(135deg, #2e72d2, #63b3ed);
+            color: white;
+            box-shadow: 0 2px 6px rgba(46,114,210,0.25);
+        }
 
         .msg-bubble {
-            padding: 11px 15px;
-            border-radius: 14px;
+            padding: 12px 16px;
+            border-radius: 18px;
             font-size: 0.875rem;
-            line-height: 1.7;
+            line-height: 1.72;
             color: #2d3748;
-            border: 1px solid #e2e8f0;
             background: white;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            box-shadow: 0 1px 6px rgba(0,0,0,0.07);
             word-break: break-word;
         }
 
-        .msg.user .msg-bubble { background: #3182ce; color: white; border-color: #3182ce; }
+        .msg.user .msg-bubble {
+            background: linear-gradient(135deg, #2e72d2, #4a9de8);
+            color: white;
+            border-radius: 18px 18px 4px 18px;
+            box-shadow: 0 2px 10px rgba(46,114,210,0.28);
+        }
+
+        .msg.assistant .msg-bubble {
+            border-radius: 4px 18px 18px 18px;
+        }
 
         .citation-box {
             margin-top: 12px;
-            padding: 10px 13px;
+            padding: 10px 14px;
             background: #ebf4ff;
-            border-left: 3px solid #3182ce;
-            border-radius: 0 8px 8px 0;
+            border-left: 3px solid #2e72d2;
+            border-radius: 0 10px 10px 0;
             font-size: 0.75rem;
             color: #4a5568;
             line-height: 1.6;
         }
 
-        .citation-box strong { color: #2c5282; }
+        .citation-box strong { color: #1e40af; }
+
+        .debug-box {
+            margin-top: 10px;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            background: #f8fafc;
+            overflow: hidden;
+        }
+
+        .debug-box summary {
+            cursor: pointer;
+            padding: 9px 13px;
+            font-size: 0.73rem;
+            color: #718096;
+            font-weight: 600;
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .debug-box summary::-webkit-details-marker { display: none; }
+
+        .debug-box pre {
+            margin: 0;
+            padding: 0 13px 13px;
+            font-size: 0.68rem;
+            line-height: 1.6;
+            color: #2d3748;
+            white-space: pre-wrap;
+            word-break: break-word;
+            font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+        }
 
         /* 타이핑 */
-        .typing-wrap { display: flex; gap: 5px; align-items: center; padding: 6px 2px; }
+        .typing-wrap { display: flex; gap: 5px; align-items: center; padding: 4px 2px; }
 
         .typing-dot {
             width: 7px; height: 7px;
-            background: #a0aec0;
+            background: #93c5fd;
             border-radius: 50%;
             animation: bounce 1.4s infinite ease-in-out;
         }
 
-        .typing-dot:nth-child(2) { animation-delay: 0.16s; }
-        .typing-dot:nth-child(3) { animation-delay: 0.32s; }
+        .typing-dot:nth-child(2) { animation-delay: 0.18s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.36s; }
 
         @keyframes bounce {
-            0%, 80%, 100% { transform: scale(0.8); opacity: 0.4; }
-            40% { transform: scale(1.2); opacity: 1; }
+            0%, 80%, 100% { transform: scale(0.8); opacity: 0.5; }
+            40% { transform: scale(1.25); opacity: 1; }
         }
 
         /* ── 입력창 ── */
         .input-area {
-            padding: 14px 20px;
+            padding: 16px 20px;
             background: white;
-            border-top: 1px solid #dce3ef;
+            border-top: 1px solid #e2e8f0;
             flex-shrink: 0;
         }
 
-        .input-row { display: flex; gap: 10px; align-items: flex-end; }
+        .input-row {
+            display: flex;
+            gap: 10px;
+            align-items: flex-end;
+            background: #f7f9fc;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 8px 8px 8px 16px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .input-row:focus-within {
+            border-color: #2e72d2;
+            box-shadow: 0 0 0 3px rgba(46,114,210,0.10);
+            background: white;
+        }
 
         .msg-input {
             flex: 1;
-            padding: 10px 15px;
-            border: 1px solid #cbd5e0;
-            border-radius: 10px;
+            border: none;
+            background: transparent;
             font-size: 0.875rem;
             resize: none;
             outline: none;
@@ -304,71 +408,77 @@
             font-family: inherit;
             color: #2d3748;
             line-height: 1.5;
-            transition: border-color 0.2s, box-shadow 0.2s;
+            padding: 4px 0;
         }
 
-        .msg-input:focus { border-color: #3182ce; box-shadow: 0 0 0 3px rgba(49,130,206,0.12); }
         .msg-input::placeholder { color: #a0aec0; }
 
         .send-btn {
-            padding: 10px 18px;
-            background: #3182ce;
+            width: 38px; height: 38px;
+            background: #2e72d2;
             color: white;
             border: none;
-            border-radius: 10px;
+            border-radius: 12px;
             cursor: pointer;
-            font-size: 0.875rem;
-            font-weight: 600;
-            white-space: nowrap;
-            transition: background 0.15s, transform 0.1s;
-            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: background 0.15s, transform 0.12s;
         }
 
-        .send-btn:hover:not(:disabled) { background: #2c5282; transform: translateY(-1px); }
-        .send-btn:disabled { background: #a0aec0; cursor: not-allowed; }
+        .send-btn:hover:not(:disabled) {
+            background: #1a4e9e;
+            transform: scale(1.06);
+        }
 
-        .input-hint { font-size: 0.68rem; color: #a0aec0; margin-top: 6px; text-align: right; }
+        .send-btn:disabled { background: #cbd5e0; cursor: not-allowed; }
 
-        ::-webkit-scrollbar { width: 5px; }
+        .send-btn svg { pointer-events: none; }
+
+        .input-hint { font-size: 0.67rem; color: #a0aec0; margin-top: 7px; text-align: right; }
+
+        ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e0; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #a0aec0; }
+        ::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #cbd5e0; }
 
         /* ── 문서 전체 보기 모달 ── */
         .doc-modal {
             display: none;
             position: fixed;
             inset: 0;
-            background: rgba(0,0,0,0.45);
+            background: rgba(15,25,50,0.4);
             z-index: 1000;
             align-items: center;
             justify-content: center;
             padding: 20px;
+            backdrop-filter: blur(2px);
         }
 
         .doc-modal.open { display: flex; }
 
         .doc-modal-inner {
             background: white;
-            border-radius: 16px;
+            border-radius: 20px;
             width: 100%;
             max-width: 720px;
             max-height: 85vh;
             display: flex;
             flex-direction: column;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+            box-shadow: 0 24px 64px rgba(0,0,0,0.18);
             overflow: hidden;
             animation: modal-in 0.18s ease;
         }
 
         @keyframes modal-in {
-            from { opacity: 0; transform: translateY(12px); }
-            to   { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; transform: translateY(14px) scale(0.98); }
+            to   { opacity: 1; transform: translateY(0) scale(1); }
         }
 
         .doc-modal-header {
             padding: 20px 24px 16px;
-            border-bottom: 1px solid #eef2f7;
+            border-bottom: 1px solid #f0f4fa;
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
@@ -379,7 +489,7 @@
             display: inline-block;
             padding: 2px 10px;
             border-radius: 12px;
-            font-size: 0.7rem;
+            font-size: 0.68rem;
             font-weight: 700;
             letter-spacing: 0.04em;
             margin-bottom: 6px;
@@ -393,20 +503,20 @@
         }
 
         .doc-modal-meta {
-            font-size: 0.72rem;
-            color: #718096;
+            font-size: 0.71rem;
+            color: #a0aec0;
             margin-top: 4px;
         }
 
         .doc-modal-close {
-            background: #f7fafc;
+            background: #f7f9fc;
             border: 1px solid #e2e8f0;
-            border-radius: 8px;
+            border-radius: 10px;
             width: 32px;
             height: 32px;
             cursor: pointer;
-            font-size: 0.9rem;
-            color: #4a5568;
+            font-size: 0.88rem;
+            color: #718096;
             flex-shrink: 0;
             display: flex;
             align-items: center;
@@ -415,7 +525,7 @@
             transition: background 0.15s;
         }
 
-        .doc-modal-close:hover { background: #eef2f7; }
+        .doc-modal-close:hover { background: #e2e8f0; color: #2d3748; }
 
         .doc-modal-body {
             overflow-y: auto;
@@ -426,22 +536,22 @@
         .doc-section {
             margin-bottom: 22px;
             padding-bottom: 22px;
-            border-bottom: 1px solid #eef2f7;
+            border-bottom: 1px solid #f0f4fa;
         }
 
         .doc-section:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
 
         .doc-section-title {
-            font-size: 0.88rem;
+            font-size: 0.87rem;
             font-weight: 700;
-            color: #2c5282;
+            color: #1e40af;
             margin-bottom: 10px;
             padding-left: 10px;
-            border-left: 3px solid #3182ce;
+            border-left: 3px solid #2e72d2;
         }
 
         .doc-section-content {
-            font-size: 0.825rem;
+            font-size: 0.82rem;
             color: #4a5568;
             line-height: 1.85;
             white-space: pre-wrap;
@@ -456,12 +566,15 @@
         <div class="header-logo">🧪</div>
         <div>
             <h1>SOP Q&amp;A Assistant</h1>
-            <div class="subtitle">제약 / 바이오 GMP SOP 문서 기반 Q&amp;A 챗봇</div>
+            <div class="subtitle">제약 · 바이오 GMP 문서 기반 AI Q&amp;A</div>
         </div>
     </div>
-    <div class="demo-badge">
-        <div class="demo-dot"></div>
-        데모 버전 · Claude claude-sonnet-4-0 기반
+    <div class="header-actions">
+        <div class="demo-badge">
+            <div class="demo-dot"></div>
+            데모 운영 중
+        </div>
+        <a class="header-link" href="/admin-dashboard.html">관리자 대시보드 →</a>
     </div>
 </header>
 
@@ -483,19 +596,19 @@
             <div class="chat-avatar">🤖</div>
             <div>
                 <h2>SOP Q&amp;A 어시스턴트</h2>
-                <p>GMP 표준 작업 절차서를 기반으로 정확한 답변을 제공합니다</p>
+                <p>GMP 표준 작업 절차서를 기반으로 정확한 답변을 드립니다</p>
             </div>
             <div class="model-chip">
                 <div class="model-dot"></div>
-                claude-sonnet-4-0
+                RAG · 하이브리드 검색
             </div>
         </div>
 
         <div class="messages" id="messages">
             <div class="welcome-card" id="welcomeCard">
-                <div class="welcome-icon">👋</div>
-                <h3>안녕하세요! SOP Q&amp;A 어시스턴트입니다</h3>
-                <p>제약 GMP 관련 SOP 3종(세척 검증 · 배치 기록 검토 · 환경 모니터링)을 기반으로 질문에 답변해 드립니다.<br>아래 샘플 질문을 클릭하거나 직접 입력해 보세요.</p>
+                <div class="welcome-icon">🤖</div>
+                <h3>SOP Q&amp;A 어시스턴트입니다</h3>
+                <p>제약 GMP SOP 10종을 기반으로 절차·기준·문서 위치를 정확히 안내합니다.<br>궁금한 내용을 바로 입력하거나 아래 샘플 질문을 눌러 시작하세요.</p>
                 <div class="sample-qs">
                     <button class="sample-q" onclick="triggerSample(this)">🔬 설비 세척 후 Swab Test의 합격 기준은 무엇인가요?</button>
                     <button class="sample-q" onclick="triggerSample(this)">📋 MACO(최대 허용 이월량) 계산 방법을 설명해 주세요</button>
@@ -508,9 +621,13 @@
         <div class="input-area">
             <div class="input-row">
                 <textarea class="msg-input" id="msgInput" placeholder="SOP 관련 질문을 입력하세요…" rows="1"></textarea>
-                <button class="send-btn" id="sendBtn" onclick="sendMsg()">전송 ▶</button>
+                <button class="send-btn" id="sendBtn" onclick="sendMsg()" title="전송">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                    </svg>
+                </button>
             </div>
-            <div class="input-hint">Enter: 전송 &nbsp;|&nbsp; Shift+Enter: 줄바꿈</div>
+            <div class="input-hint">Enter: 전송 &nbsp;·&nbsp; Shift+Enter: 줄바꿈</div>
         </div>
     </div>
 </div>
@@ -534,47 +651,47 @@
 // ================================================================
 // SOP 문서 데이터
 // ================================================================
-const DOCS = [
-    {
-        id: 'SOP-MFG-001', title: '제조 설비 세척 및 세척 검증 절차',
-        category: '제조', badgeClass: 'badge-mfg', version: 'v3.2', date: '2024-01-15',
-        sections: [
-            { title: '1. 목적', content: '본 절차서는 제약 제조 설비의 세척 방법과 세척 검증 절차를 규정함으로써, 교차 오염 방지 및 제품 품질 확보를 목적으로 한다.' },
-            { title: '2. 적용 범위', content: '본 SOP는 원료의약품 및 완제의약품 제조에 사용되는 모든 제조 설비(믹서, 과립기, 타정기, 코팅기, 충전기 등)에 적용한다.\n단, 전용 설비 또는 1회용 설비는 별도 절차에 따른다.' },
-            { title: '3. 용어 정의', content: '• MACO (Maximum Allowable Carryover): 다음 배치에 이월될 수 있는 최대 허용 잔류량\n• Swab Test: 면봉으로 설비 표면을 채취하여 잔류물을 측정하는 시험\n• Rinse Test: 최종 헹굼수를 채취하여 잔류물 농도를 측정하는 시험\n• WFI (Water for Injection): 주사용수\n• PW (Purified Water): 정제수\n• Visually Clean: 잔류물, 이물질, 변색이 없는 상태\n• SF (Safety Factor): 안전계수 (통상 1,000 적용)' },
-            { title: '4. MACO 및 세척 한계값 계산', content: 'MACO 계산식:\nMACO = (TDD_prev × MBS) / (SF × TDD_next)\n\n• TDD_prev: 이전 제품의 최대 1일 투여량 (mg/day)\n• MBS: 다음 배치의 최소 배치 크기 (mg)\n• SF: 안전계수 (기본값 1,000)\n• TDD_next: 다음 제품의 최대 1일 투여량 (mg/day)\n\n세척 한계값 도출:\n• 표면 한계값 (μg/cm²) = MACO ÷ 설비 총 접촉 표면적\n• 린스 한계값 (μg/mL) = MACO ÷ 최종 린스 총 부피\n\n기본 합격 기준 (계산값이 더 엄격한 경우 계산값 적용):\n• Swab: ≤ 4 μg/cm²\n• Rinse: ≤ 1 μg/mL' },
-            { title: '5. 세척 절차', content: '사전 준비:\n• GMP 이력카드 확인 (이전 제품 확인)\n• 승인된 세척제 준비 (예: 2% SLS, 0.5% NaOH)\n• PPE 착용: 화학보호복, 고글, 내화학성 글로브, 마스크\n\nStep 1 — 분해: 세척 가능한 최소 단위로 설비 분리\nStep 2 — 예비 세척: 정제수(PW)로 예비 헹굼, 육안 이물질 1차 제거\nStep 3 — 세척제 적용: 규정 농도·온도·시간(예: 15분) 준수\nStep 4 — 중간 헹굼: 정제수(PW)로 3회 이상 충분히 헹굼\nStep 5 — 최종 헹굼: 주사용수(WFI) 또는 정제수로 최종 헹굼\nStep 6 — 건조: 60°C 이하 오븐 건조 또는 질소 퍼징\n\n시각적 검사: 300 lux 이상 조명 아래 전 표면 검사 후 담당자 서명' },
-            { title: '6. 세척 검증', content: '검증 전략 (Worst-case Approach):\n• 용해도가 가장 낮은 제품 선정\n• MACO 값이 가장 작은 제품 선정\n• 설비 접근이 어려운 부위(데드레그, 좁은 틈새)를 worst-case 부위로 선정\n\n검증 완료 조건: 연속 3회 이상 성공 (합격 기준 충족)\n\n합격 기준:\n• Swab: ≤ 4 μg/cm² (25 cm² 면적 채취, 최소 3개 부위)\n• Rinse: ≤ 1 μg/mL (최종 린스수 100 mL 이상 채취)\n• 시각적 검사: Visually Clean\n• 미생물: 표면 ≤ 100 CFU/25 cm², 린스수 ≤ 10 CFU/100 mL' },
-            { title: '7. 문서화', content: '• 세척 기록지: 세척 일시, 담당자, 세척제 lot 번호, 단계별 서명 기재\n• 세척 검증 프로토콜 및 보고서: QA 승인 후 영구 보관 권장\n• 장비 GMP 이력카드: 세척 완료 후 업데이트\n• 전자 기록 사용 시 GMP 승인 EDMS 및 Annex 11 준수' }
-        ]
-    },
-    {
-        id: 'SOP-QA-002', title: '배치 기록 검토 및 출하 승인 절차',
-        category: '품질보증', badgeClass: 'badge-qa', version: 'v2.5', date: '2024-02-01',
-        sections: [
-            { title: '1. 목적', content: '본 절차서는 의약품 출하 전 배치 기록의 종합적인 검토 및 QP 최종 승인 절차를 규정하여, 출하되는 의약품의 품질 적합성을 보증함을 목적으로 한다.' },
-            { title: '2. 적용 범위', content: '본 SOP는 완제의약품 모든 배치의 출하 승인 절차에 적용한다.\n단, 임상시험용 의약품(IMP)은 별도 SOP-QA-015에 따른다.' },
-            { title: '3. 책임과 역할', content: '제조팀 담당자:\n• 배치 제조 기록 작성 및 1차 자기 검토\n• 공정 중 파라미터 기록 및 IPC 시험 수행\n\nQC 검사자:\n• 완제 시험 검사 수행\n• CoA(시험 성적서) 작성 및 서명\n\nQA 담당자:\n• 배치 기록 종합 검토\n• 이탈(Deviation) 영향 평가\n• CAPA 완료 여부 확인\n\nQP (Qualified Person) / 품질 책임자:\n• 출하 최종 승인 및 법적 책임\n• EU GMP 기준 상 QP 서명 없이는 출하 불가' },
-            { title: '4. 배치 기록 구성요소', content: '• BMR (Batch Manufacturing Record, 배치 제조 기록)\n  - 원료 칭량 기록, 공정별 파라미터 기록\n  - IPC(공정 중 관리) 시험 결과\n\n• BPR (Batch Packaging Record, 배치 포장 기록)\n  - 포장재 수율, 라인 클리어런스 기록\n  - 코딩/표시 검사 결과\n\n• CoA (Certificate of Analysis, 시험 성적서)\n  - 전 규격 항목별 시험 결과\n  - 합격 여부 및 검사자 서명\n\n• 관련 이탈 보고서, CAPA 기록' },
-            { title: '5. 배치 기록 검토 절차 (5단계)', content: '1단계 — 완전성 검토:\n• 모든 서명·날짜 기재 여부 확인\n• 수정 시 단선 취소 + 수정자 서명 준수 여부\n\n2단계 — 공정 준수 검토:\n• 승인된 MFI(제조 지시서) 대비 실제 공정 비교\n• 온도·습도·혼합 시간 등 파라미터 적합성\n\n3단계 — 시험 결과 검토:\n• CoA 전 항목 합격 여부\n• OOS/OOT 발생 이력 및 조사 보고서 확인\n\n4단계 — 이탈 및 변경 검토:\n• 발생한 모든 Deviation 영향 평가 완료 여부\n• CAPA 이행 및 효과 검증 완료 여부\n\n5단계 — 최종 출하 결정:\n• QP가 최종 출하 승인 서명\n• ERP/QMS 시스템에 입력' },
-            { title: '6. OOS(Out-of-Specification) 처리', content: '즉각 조치:\n1. QA에 구두 및 서면 즉시 보고\n2. 해당 배치 Hold 조치 (격리 보관 구역 이동)\n3. OOS 조사 공식 개시\n\nPhase 1 — 실험실 조사 (Lab Investigation):\n• 계산 오류 재검토\n• 기기 교정 상태 점검\n• 표준품·시약·시험법 검토\n• → 실험실 오류 확인 시: 결과 무효화 후 재시험\n\nPhase 2 — 전체 조사 (Full Investigation):\n• Phase 1에서 원인 미확인 시 제조 현장 조사\n• 공정 기록, 원료 lot, 설비 상태 검토\n\n처리 결론:\n• 실험실 오류 → 재시험 합격 시 출하 가능\n• 제조 원인 확인 → 재가공(Rework) 또는 폐기\n• 원인 불명 → QA/QP 심층 검토' },
-            { title: '7. 문서화 및 보관', content: '• 배치 제조 기록: 제품 유효기한 + 1년 이상 (최소 5년)\n• 출하 승인서: 5년 이상 보관\n• OOS 조사 보고서: 해당 배치 기록과 함께 보관\n• 전자 기록: GMP 승인 EDMS, 21 CFR Part 11 또는 Annex 11 준수' }
-        ]
-    },
-    {
-        id: 'SOP-QC-003', title: '청정구역 환경 모니터링 프로그램',
-        category: '품질관리', badgeClass: 'badge-qc', version: 'v4.1', date: '2024-03-01',
-        sections: [
-            { title: '1. 목적', content: '본 절차서는 청정구역(Clean Room)의 환경 상태를 지속적으로 모니터링하여 제품 오염 방지 및 GMP 적합성 유지를 목적으로 한다.' },
-            { title: '2. 청정구역 등급 분류', content: 'EU GMP Annex 1 기준 입자 허용 기준:\n\nGrade A (ISO 5) — 고위험 구역:\n• 용도: 충전, 용기 마개 작업, 멸균 제품 노출\n• 0.5 μm 이상: ≤ 3,520 개/m³ (정지·작업 중 동일)\n• 5.0 μm 이상: ≤ 20 개/m³ (작업 중)\n\nGrade B (ISO 5) — A 배경 구역:\n• 0.5 μm: ≤ 3,520 개/m³ (정지) / ≤ 352,000 개/m³ (작업 중)\n\nGrade C (ISO 7):\n• 0.5 μm: ≤ 352,000 개/m³ (정지) / ≤ 3,520,000 개/m³ (작업 중)\n\nGrade D (ISO 8):\n• 0.5 μm: ≤ 3,520,000 개/m³ (정지)' },
-            { title: '3. 입자 모니터링', content: '모니터링 빈도:\n• Grade A: 연속 모니터링 (실시간)\n• Grade B: 최소 1회/교대\n• Grade C: 최소 주 1회\n• Grade D: 최소 월 1회\n\n장비: 교정된 입자계수기 (ISO 14644-1 기준)\n\n측정 위치: 각 등급 구역별 대표 지점 (최소 3개 지점)\n\n기록: 측정 일시, 위치, 결과값, 담당자 서명' },
-            { title: '4. 미생물 모니터링', content: '합격 기준 (작업 중):\n• Grade A: 부유 미생물 < 1 CFU/m³, Settle Plate < 1 CFU/4hr\n• Grade B: 부유 미생물 ≤ 10 CFU/m³, Settle Plate ≤ 5 CFU/4hr\n• Grade C: 부유 미생물 ≤ 100 CFU/m³, Settle Plate ≤ 50 CFU/4hr\n• Grade D: 부유 미생물 ≤ 200 CFU/m³, Settle Plate ≤ 100 CFU/4hr\n\n샘플링 방법:\n• 능동 샘플링: RCS/SAS 공기 샘플러 (배지: TSA)\n• Settle Plate: 90 mm TSA 배지 4시간 노출\n• 표면: Contact Plate (25 cm²) 또는 Swab\n\n배양 조건:\n• 세균: 30~35°C 3일 → 20~25°C 2일 (총 5일)\n• 곰팡이/효모: 20~25°C 5~7일' },
-            { title: '5. HVAC 시스템 모니터링', content: '압차 (Differential Pressure):\n• Grade A/B 사이: ≥ 15 Pa\n• Grade B/C 사이: ≥ 10 Pa\n• Grade C/D 사이: ≥ 5 Pa\n• 연속 모니터링 및 24시간 데이터 기록\n\n온도 및 습도:\n• 온도: 18~22°C (연속 모니터링)\n• 상대습도(RH): 40~60%\n\n기류 속도 (Grade A):\n• 층류(Unidirectional Airflow): 0.45 m/s ± 20%\n\n환기 횟수:\n• Grade C: 최소 20회/hr\n• Grade D: 최소 10회/hr\n\n정기 점검:\n• HEPA 필터 누설 시험(DOP/PAO): 6개월~연 1회\n• 연기 시험(층류 확인): 연 1회 이상' },
-            { title: '6. 이탈 관리 및 CAPA', content: 'Alert vs Action 기준:\n• Alert 기준: 허용 기준의 50% 초과 → 조기 경보, 원인 조사 시작\n• Action 기준: 허용 기준 초과 → 즉각 조치 필요\n\n이탈 처리 6단계:\n1. QA 즉시 통보 (구두 + 서면)\n2. 해당 구역 작업 중단 검토 및 격리 조치\n3. 추가 샘플링(확인 시험) 실시\n4. 원인 조사: 4M1E 분석 (인원·설비·소재·방법·환경)\n5. CAPA 수립 및 이행 (즉시 조치 + 재발 방지)\n6. 효과 검증: 집중 모니터링 후 결과 검토\n\n주요 오염 원인:\n• 작업자 (가장 주요): 부적절한 복장·행동, 에어락 절차 미준수\n• 설비: HEPA 필터 손상, 압차 미충족, 도어 밀봉 불량\n• 소재: 오염된 원료·부품 반입\n• 소독제: 로테이션 미준수로 내성균 발생' },
-            { title: '7. 문서화', content: '• 모니터링 기록지: 5년 이상 보관\n• 경향 분석 보고서: 월별/분기별 QA 검토\n• CAPA 기록: 완료 일시, 효과 검증 포함\n• 장비 교정 기록: 입자계수기, 샘플러 교정 이력 보관\n• 전자 기록: GMP 승인 EDMS 사용 시 Annex 11 준수' }
-        ]
+let DOCS = [];
+
+function getBadgeClass(department) {
+    if (department === '제조') return 'badge-mfg';
+    if (department === '품질보증') return 'badge-qa';
+    return 'badge-qc';
+}
+
+function mapDocumentForUI(doc) {
+    return {
+        id: doc.document_id,
+        title: doc.title_ko,
+        category: doc.department,
+        badgeClass: getBadgeClass(doc.department),
+        version: `v${doc.version}`,
+        date: doc.effective_date,
+        sections: (doc.sections || []).map(section => ({
+            title: section.section_title,
+            content: section.content
+        }))
+    };
+}
+
+async function loadDocs() {
+    const res = await fetch('./data/documents/sop-documents.json');
+    if (!res.ok) {
+        throw new Error(`문서 데이터를 불러오지 못했습니다: ${res.status}`);
     }
-];
+
+    const payload = await res.json();
+    DOCS = (payload.documents || []).map(mapDocumentForUI);
+}
+
+function renderDocLoadError() {
+    document.getElementById('docList').innerHTML = `
+        <div class="doc-item" style="cursor: default;">
+            <div class="doc-name">문서 로딩 실패</div>
+            <div class="doc-meta">로컬 서버에서 실행하거나 data/documents 경로를 확인해 주세요.</div>
+        </div>
+    `;
+}
 
 // ================================================================
 // 사전 정의 Q&A 데이터베이스
@@ -893,14 +1010,21 @@ MACO = (TDD_prev × MBS) / (SF × TDD_next)
 
 // 기본 응답 (키워드 미매칭 시)
 const DEFAULT_ANSWERS = [
-    `제공된 SOP 문서(SOP-MFG-001, SOP-QA-002, SOP-QC-003)에서 해당 질문에 대한 직접적인 내용을 찾기 어렵습니다.
+    `제공된 SOP 문서 10종에서 해당 질문에 대한 직접적인 내용을 찾기 어렵습니다.
 
 관련 가능한 SOP 문서를 참조하시거나, 더 구체적인 키워드로 질문해 주시면 정확한 답변을 드릴 수 있습니다.
 
 **현재 탑재된 SOP 문서:**
 - SOP-MFG-001: 제조 설비 세척 및 세척 검증 (MACO, Swab Test 등)
 - SOP-QA-002: 배치 기록 검토 및 출하 승인 (OOS, QP 승인 등)
-- SOP-QC-003: 청정구역 환경 모니터링 (Grade 분류, 미생물 기준 등)`,
+- SOP-QC-003: 청정구역 환경 모니터링 (Grade 분류, 미생물 기준 등)
+- SOP-MFG-004: 원자재 샘플링 및 입고 승인
+- SOP-MFG-005: 라인 클리어런스 및 제품 전환
+- SOP-QA-006: Deviation 조사 및 CAPA 관리
+- SOP-QA-007: 변경관리(Change Control)
+- SOP-QC-008: 안정성 시험 샘플 관리
+- SOP-QC-009: 분석기기 교정 및 예방보전
+- SOP-ENG-010: PW/WFI 시스템 모니터링`,
 
     `해당 내용은 현재 탑재된 SOP 문서에 명시되어 있지 않습니다.
 
@@ -917,11 +1041,22 @@ const DEFAULT_ANSWERS = [
 let loading = false;
 let selectedDoc = null;
 let answerCount = 0;
+const CHAT_API_URL = '/api/chat';
 
 // ================================================================
 // 사이드바
 // ================================================================
 function renderSidebar() {
+    if (DOCS.length === 0) {
+        document.getElementById('docList').innerHTML = `
+            <div class="doc-item" style="cursor: default;">
+                <div class="doc-name">문서가 없습니다</div>
+                <div class="doc-meta">데이터 파일을 먼저 불러와 주세요.</div>
+            </div>
+        `;
+        return;
+    }
+
     document.getElementById('docList').innerHTML = DOCS.map(doc => `
         <div class="doc-item ${selectedDoc === doc.id ? 'active' : ''}"
              onclick="selectDoc('${doc.id}')">
@@ -936,6 +1071,7 @@ function selectDoc(id) {
     selectedDoc = id;
     renderSidebar();
     const doc = DOCS.find(d => d.id === id);
+    if (!doc) return;
 
     // 사이드바 칩 업데이트
     document.getElementById('previewTitle').textContent = `📋 ${doc.title}`;
@@ -1096,14 +1232,49 @@ function appendAssistantMsg(answerObj) {
 
     // 출처 박스 준비 (스트리밍 완료 후 추가)
     streamText(bubble, answerObj.answer, () => {
-        if (answerObj.sources && answerObj.sources.length > 0) {
+        const citations = answerObj.citations || answerObj.sources || [];
+        const formattedSources = citations.map((source) => {
+            if (typeof source === 'string') return source;
+            return `${source.document_id} - ${source.section_title} (v${source.version})`;
+        });
+
+        if (formattedSources.length > 0) {
             const cite = document.createElement('div');
             cite.className = 'citation-box';
-            cite.innerHTML = `<strong>📌 출처</strong><br>${answerObj.sources.map(s => `• [${s}]`).join('<br>')}`;
+            cite.innerHTML = `<strong>📌 출처</strong><br>${formattedSources.map(s => `• [${s}]`).join('<br>')}`;
             bubble.appendChild(cite);
             wrap.scrollTop = wrap.scrollHeight;
         }
+
+        if (answerObj.retrieval_debug) {
+            const debug = document.createElement('details');
+            debug.className = 'debug-box';
+            debug.innerHTML = `
+                <summary>검색 디버그 보기</summary>
+                <pre>${esc(JSON.stringify(answerObj.retrieval_debug, null, 2))}</pre>
+            `;
+            bubble.appendChild(debug);
+            wrap.scrollTop = wrap.scrollHeight;
+        }
     });
+}
+
+async function askViaApi(question) {
+    const res = await fetch(CHAT_API_URL, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ question })
+    });
+
+    if (!res.ok) {
+        const errorPayload = await res.json().catch(() => ({}));
+        const message = errorPayload.message || `API 요청 실패 (${res.status})`;
+        throw new Error(message);
+    }
+
+    return res.json();
 }
 
 // ================================================================
@@ -1126,7 +1297,14 @@ async function ask(question) {
 
     hideTyping();
 
-    const result = findAnswer(question);
+    let result;
+    try {
+        result = await askViaApi(question);
+    } catch (error) {
+        console.error(error);
+        result = findAnswer(question);
+    }
+
     answerCount++;
     appendAssistantMsg(result);
 
@@ -1161,7 +1339,14 @@ document.getElementById('msgInput').addEventListener('keydown', function (e) {
     }
 });
 
-renderSidebar();
+loadDocs()
+    .then(() => {
+        renderSidebar();
+    })
+    .catch((err) => {
+        console.error(err);
+        renderDocLoadError();
+    });
 </script>
 </body>
 </html>
