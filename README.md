@@ -15,6 +15,7 @@
 
 ## 바로 보기
 
+- 메인 페이지: [https://jhr122333.github.io/sop-qa-assistant/](https://jhr122333.github.io/sop-qa-assistant/)
 - 챗봇: [sop-qa-demo.html](https://jhr122333.github.io/sop-qa-assistant/sop-qa-demo.html)
 - 관리자 대시보드: [admin-dashboard.html](https://jhr122333.github.io/sop-qa-assistant/admin-dashboard.html)
 
