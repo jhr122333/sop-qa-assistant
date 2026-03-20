@@ -555,28 +555,6 @@
                 <section class="panel">
                     <div class="panel-head">
                         <div>
-                            <div class="panel-title">품질 점수</div>
-                            <div class="panel-subtitle">현재는 mock 값이지만, 구조는 live metrics와 바로 연결 가능하게 만들어 두었습니다.</div>
-                        </div>
-                        <span class="badge badge-green">Ready for Live Data</span>
-                    </div>
-                    <div class="score-list" id="scoreList"></div>
-                    <div class="mini-note">추천 운영 루틴: 부정 피드백 증가 → 리뷰 큐 확인 → retrieval debug 확인 → 문서 추가 또는 prompt 조정</div>
-                </section>
-
-                <section class="panel">
-                    <div class="panel-head">
-                        <div>
-                            <div class="panel-title">문서 커버리지</div>
-                            <div class="panel-subtitle">어떤 문서가 많이 인용되고, 어떤 문서가 아직 검색되지 않는지 보는 영역입니다.</div>
-                        </div>
-                    </div>
-                    <div class="doc-list" id="docList"></div>
-                </section>
-
-                <section class="panel">
-                    <div class="panel-head">
-                        <div>
                             <div class="panel-title">문서 상태 / 인덱싱</div>
                             <div class="panel-subtitle">버전 관리와 인덱싱 상태를 추적하기 위한 관리자 테이블입니다.</div>
                         </div>
@@ -601,7 +579,7 @@
             <h2>📊 응답 만족도 분석</h2>
             <span class="badge badge-blue">피드백 기반</span>
         </div>
-        <div class="grid-3">
+        <div class="grid-2-1">
             <section class="panel">
                 <div class="panel-head">
                     <div>
@@ -611,17 +589,6 @@
                     <span class="badge badge-green" id="satisfactionRateBadge">—</span>
                 </div>
                 <div class="chart-wrap"><canvas id="chartSatisfaction"></canvas></div>
-            </section>
-
-            <section class="panel">
-                <div class="panel-head">
-                    <div>
-                        <div class="panel-title">7일 만족도 추이</div>
-                        <div class="panel-subtitle">일별 긍정 비율 변화</div>
-                    </div>
-                    <span class="badge badge-blue">최근 7일</span>
-                </div>
-                <div class="chart-wrap"><canvas id="chartSatisfactionTrend"></canvas></div>
             </section>
 
             <section class="panel">
@@ -660,16 +627,6 @@
                 <div class="chart-wrap" style="height:200px;"><canvas id="chartQuestionTypes"></canvas></div>
             </section>
         </div>
-
-        <section class="panel" style="margin-top:18px;">
-            <div class="panel-head">
-                <div>
-                    <div class="panel-title">SOP 커버리지 히트맵</div>
-                    <div class="panel-subtitle">전체 SOP 10종 중 참조된 빈도 — 색이 짙을수록 자주 참조됨</div>
-                </div>
-            </div>
-            <div class="heatmap-grid" id="coverageHeatmap"></div>
-        </section>
 
         <!-- ── v2: 피드백 리뷰 큐 ── -->
         <div class="section-divider" style="margin-top:24px;">
@@ -910,50 +867,6 @@
             });
         }
 
-        function renderSatisfactionTrend(entries) {
-            const days = getLast7Days();
-            const labels = days.map(d => d.slice(5).replace('-', '/'));
-
-            const dataMap = {};
-            days.forEach(d => { dataMap[d] = { pos: 0, total: 0 }; });
-            entries.forEach(e => {
-                const day = (e.timestamp || '').slice(0, 10);
-                if (dataMap[day]) {
-                    dataMap[day].total++;
-                    if (e.rating === 'positive') dataMap[day].pos++;
-                }
-            });
-
-            const rates = days.map(d => dataMap[d].total ? Math.round((dataMap[d].pos / dataMap[d].total) * 100) : null);
-
-            new Chart(document.getElementById('chartSatisfactionTrend'), {
-                type: 'line',
-                data: {
-                    labels,
-                    datasets: [{
-                        label: '긍정 비율 (%)',
-                        data: rates,
-                        borderColor: '#2159b5',
-                        backgroundColor: 'rgba(33,89,181,0.08)',
-                        tension: 0.4,
-                        fill: true,
-                        pointBackgroundColor: '#2159b5',
-                        pointRadius: 4,
-                        spanGaps: true
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: { min: 0, max: 100, ticks: { callback: v => v + '%', font: { size: 11 } }, grid: { color: '#f0f4fa' } },
-                        x: { ticks: { font: { size: 11 } }, grid: { display: false } }
-                    },
-                    plugins: { legend: { display: false } }
-                }
-            });
-        }
-
         function renderNegativeReasons(entries) {
             const negatives = entries.filter(e => e.rating === 'negative');
             const reasons = ['부정확한 답변', '정보 부족', '출처 불일치', '기타'];
@@ -1046,43 +959,6 @@
             });
         }
 
-        function renderCoverageHeatmap(entries) {
-            const ALL_SOPS = [
-                { id: 'SOP-MFG-001', label: '설비 세척' },
-                { id: 'SOP-QA-002',  label: '배치 검토' },
-                { id: 'SOP-QC-003',  label: '환경 모니터링' },
-                { id: 'SOP-MFG-004', label: '원자재 샘플링' },
-                { id: 'SOP-MFG-005', label: '라인 클리어런스' },
-                { id: 'SOP-QA-006',  label: 'Deviation' },
-                { id: 'SOP-QA-007',  label: '변경관리' },
-                { id: 'SOP-QC-008',  label: '안정성 시험' },
-                { id: 'SOP-QC-009',  label: '기기 교정' },
-                { id: 'SOP-ENG-010', label: 'PW/WFI 시스템' }
-            ];
-
-            const counts = {};
-            entries.forEach(e => {
-                (e.referenced_sops || []).forEach(sop => {
-                    counts[sop] = (counts[sop] || 0) + 1;
-                });
-            });
-
-            const max = Math.max(...Object.values(counts), 1);
-
-            const container = document.getElementById('coverageHeatmap');
-            container.innerHTML = ALL_SOPS.map(({ id, label }) => {
-                const cnt = counts[id] || 0;
-                const level = cnt === 0 ? 0 : Math.ceil((cnt / max) * 5);
-                return `
-                    <div class="heatmap-cell heat-${level}" title="${id}: ${cnt}회 참조">
-                        <span class="heatmap-count">${cnt}</span>
-                        <span>${id.replace('SOP-', '')}</span>
-                        <br><span style="font-weight:400;font-size:0.62rem;">${label}</span>
-                    </div>
-                `;
-            }).join('');
-        }
-
         // ================================================================
         // v2: 피드백 리뷰 큐
         // ================================================================
@@ -1146,11 +1022,9 @@
             try {
                 const entries = await loadFeedbackEntries();
                 renderSatisfactionDonut(entries);
-                renderSatisfactionTrend(entries);
                 renderNegativeReasons(entries);
                 renderTopSops(entries);
                 renderQuestionTypes(entries);
-                renderCoverageHeatmap(entries);
                 renderFeedbackReviewQueue(entries);
             } catch (err) {
                 console.error('피드백 데이터 로딩 실패:', err);
