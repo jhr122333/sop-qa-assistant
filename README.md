@@ -18,6 +18,7 @@
 - 메인 페이지: [https://jhr122333.github.io/sop-qa-assistant/](https://jhr122333.github.io/sop-qa-assistant/)
 - 챗봇: [sop-qa-demo.html](https://jhr122333.github.io/sop-qa-assistant/sop-qa-demo.html)
 - 관리자 대시보드: [admin-dashboard.html](https://jhr122333.github.io/sop-qa-assistant/admin-dashboard.html)
+- Q&A DB 관리: [qa-db.html](https://jhr122333.github.io/sop-qa-assistant/qa-db.html)
 
 ---
 
@@ -68,22 +69,25 @@
 
 #### 응답 만족도 분석 (Chart.js)
 - 전체 긍정/부정 비율 도넛 차트
-- 최근 7일 만족도 추이 라인 차트
 - 불만족 사유 분포 가로 막대 차트
 
 #### 질문 분석
 - 가장 많이 질문된 SOP Top 5
 - 질문 유형 자동 분류 도넛 차트 (절차·기준·담당·정의·기타 6종)
-- SOP 커버리지 히트맵 (10종 문서별 참조 빈도)
 
 #### 피드백 리뷰 큐
 - 최신 부정 피드백 카드 목록 (질문 / 사유 / 참조 SOP / 코멘트)
 - 검토 완료 체크박스 (상태 `localStorage` 저장)
 
-#### 탑재 Q&A 목록
-- 오프라인 키워드 Q&A DB 전체 항목 테이블 (25건)
-- 출처 SOP 배지 / 인식 키워드 태그 / 답변 미리보기
-- 키워드·SOP ID 실시간 검색 필터
+#### Q&A DB 관리 CTA
+- 대시보드 하단에 Q&A DB 전용 페이지(`qa-db.html`)로 이동하는 카드 배치
+
+### Q&A DB 관리 (`qa-db.html`)
+
+- 탑재된 오프라인 키워드 Q&A 항목 전체 테이블 (25건)
+- 키워드 검색 + SOP 드롭다운 필터 동시 적용
+- 각 행에서 전체 답변 인라인 펼침
+- 대시보드와 분리된 독립 페이지 — 문서가 늘어날수록 이곳에서 관리
 
 ---
 
@@ -115,6 +119,7 @@ sop-qa/
 ├── index.html                             # 제품 소개 진입 화면
 ├── sop-qa-demo.html                       # 사용자용 챗봇
 ├── admin-dashboard.html                   # 운영자용 대시보드
+├── qa-db.html                             # Q&A DB 관리 전용 페이지
 ├── server.mjs                             # Node.js HTTP 서버
 ├── package.json
 ├── .env.example
