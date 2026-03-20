@@ -762,8 +762,6 @@
                 const data = await loadDashboardData();
                 renderKpis(data.kpis);
                 renderTrends(data.dailyQuestions);
-                renderScores(data.qualityScores);
-                renderDocs(data.documentCoverage);
                 renderQueue(data.reviewQueue);
                 renderIndexTable(data.indexStatus);
                 document.getElementById('lastUpdated').textContent = `Last updated ${data.lastUpdated}`;
