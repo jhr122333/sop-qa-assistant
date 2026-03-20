@@ -1,0 +1,116 @@
+{
+  "lastUpdated": "2026-03-13 10:42",
+  "kpis": [
+    {
+      "label": "총 질문 수",
+      "value": "1,284",
+      "delta": "+12.4% vs 지난주",
+      "deltaTone": "up"
+    },
+    {
+      "label": "답변 성공률",
+      "value": "78%",
+      "delta": "+4.1pt 개선",
+      "deltaTone": "up"
+    },
+    {
+      "label": "근거 부족 비율",
+      "value": "11%",
+      "delta": "-2.3pt 감소",
+      "deltaTone": "up"
+    },
+    {
+      "label": "부정 피드백",
+      "value": "8.6%",
+      "delta": "주의 필요",
+      "deltaTone": "warn"
+    }
+  ],
+  "dailyQuestions": [
+    { "day": "Fri", "value": 143 },
+    { "day": "Sat", "value": 96 },
+    { "day": "Sun", "value": 81 },
+    { "day": "Mon", "value": 167 },
+    { "day": "Tue", "value": 191 },
+    { "day": "Wed", "value": 204 },
+    { "day": "Thu", "value": 188 }
+  ],
+  "qualityScores": [
+    { "label": "Citation Attachment", "value": 97 },
+    { "label": "Grounded Answer Rate", "value": 84 },
+    { "label": "Helpful Feedback", "value": 76 },
+    { "label": "Retrieval Hit Rate", "value": 81 }
+  ],
+  "documentCoverage": [
+    {
+      "name": "SOP-QA-002 배치 기록 검토 및 출하 승인 절차",
+      "badge": "Top Referenced",
+      "tone": "good",
+      "citations": 391,
+      "failures": 18,
+      "version": "v2.5"
+    },
+    {
+      "name": "SOP-QC-003 청정구역 환경 모니터링 프로그램",
+      "badge": "Stable",
+      "tone": "neutral",
+      "citations": 284,
+      "failures": 11,
+      "version": "v4.1"
+    },
+    {
+      "name": "SOP-MFG-001 제조 설비 세척 및 세척 검증 절차",
+      "badge": "Needs Coverage",
+      "tone": "warn",
+      "citations": 173,
+      "failures": 27,
+      "version": "v3.2"
+    }
+  ],
+  "reviewQueue": [
+    {
+      "question": "OOS 원인 불명일 때 재시험 허용 기준이 SOP에 명시돼 있나요?",
+      "status": "리뷰 필요",
+      "severity": "review",
+      "meta": "Low confidence · SOP-QA-002 · retrieval score 낮음"
+    },
+    {
+      "question": "Grade B 장갑 모니터링 기준이 현재 문서에 없는데 답변이 생성됨",
+      "status": "Hallucination 의심",
+      "severity": "bad",
+      "meta": "Negative feedback · SOP-QC-003 · 사용자 신고 2건"
+    },
+    {
+      "question": "MACO 계산 시 독성 기준 PDE 반영 여부",
+      "status": "문서 추가 후보",
+      "severity": "warn",
+      "meta": "Insufficient evidence · 신규 SOP 또는 validation 문서 필요"
+    }
+  ],
+  "indexStatus": [
+    {
+      "documentId": "SOP-MFG-001",
+      "title": "제조 설비 세척 및 세척 검증 절차",
+      "state": "Indexed",
+      "stateTone": "indexed",
+      "version": "v3.2",
+      "nextAction": "검색 품질 튜닝"
+    },
+    {
+      "documentId": "SOP-QA-002",
+      "title": "배치 기록 검토 및 출하 승인 절차",
+      "state": "Indexed",
+      "stateTone": "indexed",
+      "version": "v2.5",
+      "nextAction": "리뷰 큐 기반 보강"
+    },
+    {
+      "documentId": "VAL-CLEAN-004",
+      "title": "Cleaning Validation Report",
+      "state": "Pending Metadata",
+      "stateTone": "warn",
+      "version": "v1.0",
+      "nextAction": "승인 상태 입력 필요"
+    }
+  ]
+}

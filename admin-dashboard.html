@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOP Q&A Admin Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+    <style>
+        :root {
+            --bg: #f3f6fb;
+            --panel: #ffffff;
+            --ink: #172334;
+            --muted: #6c7a8c;
+            --line: #d9e2ef;
+            --brand: #2159b5;
+            --brand-soft: #e8f0ff;
+            --good: #1f8f5f;
+            --warn: #d48a18;
+            --bad: #c24646;
+            --navy: #14325c;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans KR", sans-serif;
+            background:
+                radial-gradient(circle at top left, rgba(33, 89, 181, 0.07), transparent 24%),
+                radial-gradient(circle at top right, rgba(33, 89, 181, 0.09), transparent 18%),
+                var(--bg);
+            color: var(--ink);
+            min-height: 100vh;
+        }
+
+        .page {
+            max-width: 1380px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            padding: 20px 24px;
+            border-radius: 24px;
+            background: rgba(255,255,255,0.92);
+            color: var(--ink);
+            border: 1px solid var(--line);
+            box-shadow: 0 18px 40px rgba(31, 41, 55, 0.06);
+            backdrop-filter: blur(8px);
+        }
+
+        .topbar h1 {
+            font-size: 1.5rem;
+            margin-bottom: 6px;
+        }
+
+        .topbar p {
+            color: var(--muted);
+            font-size: 0.94rem;
+            line-height: 1.55;
+        }
+
+        .topbar-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        .pill, .ghost-link {
+            border-radius: 999px;
+            padding: 10px 14px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            text-decoration: none;
+            border: 1px solid var(--line);
+        }
+
+        .pill {
+            background: var(--brand-soft);
+            color: var(--brand);
+        }
+
+        .ghost-link {
+            background: white;
+            color: var(--ink);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 18px;
+            margin-top: 18px;
+        }
+
+        .stack {
+            display: grid;
+            gap: 18px;
+        }
+
+        .panel {
+            background: var(--panel);
+            border: 1px solid var(--line);
+            border-radius: 22px;
+            padding: 20px;
+            box-shadow: 0 14px 32px rgba(28, 52, 84, 0.06);
+        }
+
+        .panel-head {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .panel-title {
+            font-size: 1rem;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+
+        .panel-subtitle {
+            color: var(--muted);
+            font-size: 0.82rem;
+            line-height: 1.5;
+        }
+
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .kpi-card {
+            border-radius: 18px;
+            padding: 16px;
+            background: linear-gradient(180deg, #ffffff 0%, #f9fbff 100%);
+            border: 1px solid var(--line);
+        }
+
+        .kpi-label {
+            color: var(--muted);
+            font-size: 0.78rem;
+            margin-bottom: 10px;
+        }
+
+        .kpi-value {
+            font-size: 1.7rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+        }
+
+        .kpi-delta {
+            margin-top: 10px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .up { color: var(--good); }
+        .down { color: var(--bad); }
+        .warn { color: var(--warn); }
+
+        .trend-bars {
+            display: grid;
+            grid-template-columns: repeat(7, minmax(0, 1fr));
+            gap: 10px;
+            align-items: end;
+            height: 180px;
+        }
+
+        .trend-col {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .bar-wrap {
+            width: 100%;
+            height: 132px;
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .bar {
+            width: 100%;
+            border-radius: 16px 16px 8px 8px;
+            background: linear-gradient(180deg, #88b1f0 0%, #2159b5 100%);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.35);
+        }
+
+        .bar-note {
+            font-size: 0.74rem;
+            color: var(--muted);
+        }
+
+        .score-list {
+            display: grid;
+            gap: 12px;
+        }
+
+        .score-row {
+            display: grid;
+            grid-template-columns: 120px 1fr 58px;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .score-row strong {
+            font-size: 0.82rem;
+        }
+
+        .meter {
+            height: 12px;
+            border-radius: 999px;
+            background: #edf2f8;
+            overflow: hidden;
+        }
+
+        .meter > span {
+            display: block;
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(90deg, #2159b5 0%, #79a4ea 100%);
+        }
+
+        .score-num {
+            text-align: right;
+            font-size: 0.8rem;
+            font-weight: 800;
+        }
+
+        .doc-list, .queue-list {
+            display: grid;
+            gap: 10px;
+        }
+
+        .doc-row, .queue-row {
+            padding: 14px 16px;
+            border-radius: 16px;
+            border: 1px solid var(--line);
+            background: #fcfdff;
+        }
+
+        .doc-top, .queue-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 6px;
+        }
+
+        .doc-name, .queue-title {
+            font-size: 0.87rem;
+            font-weight: 700;
+        }
+
+        .doc-meta, .queue-meta {
+            font-size: 0.76rem;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 999px;
+            padding: 5px 10px;
+            font-size: 0.72rem;
+            font-weight: 800;
+        }
+
+        .badge-blue { background: #e8f0ff; color: var(--brand); }
+        .badge-green { background: #e6f7ee; color: var(--good); }
+        .badge-amber { background: #fff3df; color: var(--warn); }
+        .badge-red { background: #fde7e7; color: var(--bad); }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 12px 10px;
+            border-bottom: 1px solid #eef3f8;
+            font-size: 0.8rem;
+            vertical-align: top;
+        }
+
+        th {
+            color: var(--muted);
+            font-size: 0.74rem;
+            font-weight: 800;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+        }
+
+        td strong {
+            display: block;
+            margin-bottom: 4px;
+            font-size: 0.82rem;
+        }
+
+        .mini-note {
+            margin-top: 12px;
+            padding: 12px 14px;
+            border-radius: 16px;
+            background: var(--brand-soft);
+            color: #28466f;
+            font-size: 0.78rem;
+            line-height: 1.55;
+        }
+
+        @media (max-width: 1080px) {
+            .grid { grid-template-columns: 1fr; }
+            .kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        }
+
+        @media (max-width: 700px) {
+            .page { padding: 14px; }
+            .topbar { padding: 18px; border-radius: 18px; }
+            .kpi-grid { grid-template-columns: 1fr; }
+            .score-row { grid-template-columns: 1fr; }
+            .trend-bars { gap: 6px; }
+            th:nth-child(4), td:nth-child(4) { display: none; }
+        }
+
+        /* ── v2 피드백 분석 섹션 ── */
+        .section-divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 28px;
+            margin-bottom: 14px;
+        }
+
+        .section-divider h2 {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: var(--ink);
+            white-space: nowrap;
+        }
+
+        .section-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--line);
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .grid-2-1 {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 18px;
+            margin-top: 14px;
+        }
+
+        .chart-wrap {
+            position: relative;
+            height: 220px;
+        }
+
+        /* 히트맵 */
+        .heatmap-grid {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 8px;
+            margin-top: 4px;
+        }
+
+        .heatmap-cell {
+            border-radius: 12px;
+            padding: 10px 8px;
+            text-align: center;
+            font-size: 0.68rem;
+            font-weight: 700;
+            line-height: 1.4;
+            transition: transform 0.15s;
+            cursor: default;
+        }
+
+        .heatmap-cell:hover { transform: scale(1.06); }
+
+        .heat-0 { background: #f1f5f9; color: #94a3b8; }
+        .heat-1 { background: #dbeafe; color: #1e40af; }
+        .heat-2 { background: #bfdbfe; color: #1d4ed8; }
+        .heat-3 { background: #93c5fd; color: #1e3a8a; }
+        .heat-4 { background: #3b82f6; color: #ffffff; }
+        .heat-5 { background: #1d4ed8; color: #ffffff; }
+
+        .heatmap-count {
+            display: block;
+            font-size: 1.1rem;
+            font-weight: 900;
+            margin-bottom: 2px;
+        }
+
+        /* 피드백 리뷰 큐 */
+        .feedback-queue-list {
+            display: grid;
+            gap: 10px;
+        }
+
+        .fq-row {
+            padding: 14px 16px;
+            border-radius: 16px;
+            border: 1px solid var(--line);
+            background: #fcfdff;
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+            transition: opacity 0.3s;
+        }
+
+        .fq-row.reviewed {
+            opacity: 0.45;
+            background: #f8faf8;
+        }
+
+        .fq-check {
+            margin-top: 2px;
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+            cursor: pointer;
+            accent-color: var(--good);
+        }
+
+        .fq-body { flex: 1; min-width: 0; }
+
+        .fq-question {
+            font-size: 0.87rem;
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .fq-answer {
+            font-size: 0.78rem;
+            color: var(--muted);
+            margin-bottom: 6px;
+            line-height: 1.5;
+        }
+
+        .fq-meta {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .fq-reason {
+            font-size: 0.72rem;
+            padding: 2px 10px;
+            border-radius: 999px;
+            background: #fde7e7;
+            color: var(--bad);
+            font-weight: 700;
+        }
+
+        .fq-time {
+            font-size: 0.72rem;
+            color: #a0aec0;
+        }
+
+        .fq-sop {
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 999px;
+            background: #e8f0ff;
+            color: var(--brand);
+            font-weight: 600;
+        }
+
+        .fq-empty {
+            text-align: center;
+            padding: 32px;
+            color: var(--muted);
+            font-size: 0.88rem;
+        }
+
+        @media (max-width: 1080px) {
+            .grid-3 { grid-template-columns: 1fr; }
+            .grid-2-1 { grid-template-columns: 1fr; }
+            .heatmap-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <header class="topbar">
+            <div>
+                <h1>운영 관리자 대시보드</h1>
+                <p>질문량, 답변 품질, 문서 커버리지, 리뷰 큐를 한 화면에서 보고 개선 우선순위를 잡는 관리자용 화면입니다.</p>
+            </div>
+            <div class="topbar-actions">
+                <span class="pill">Mock Data Preview</span>
+                <span class="pill" id="lastUpdated">Last updated</span>
+                <a class="ghost-link" href="./sop-qa-demo.html">챗봇으로 돌아가기</a>
+            </div>
+        </header>
+
+        <div class="grid">
+            <div class="stack">
+                <section class="panel">
+                    <div class="panel-head">
+                        <div>
+                            <div class="panel-title">Executive Overview</div>
+                            <div class="panel-subtitle">운영자가 먼저 확인하는 핵심 지표입니다. 다음 단계에서는 실사용 로그와 연결됩니다.</div>
+                        </div>
+                    </div>
+                    <div class="kpi-grid" id="kpiGrid"></div>
+                </section>
+
+                <section class="panel">
+                    <div class="panel-head">
+                        <div>
+                            <div class="panel-title">질문량 추이</div>
+                            <div class="panel-subtitle">최근 7일 질문량입니다. 일별 변동과 재질문 구간을 빠르게 볼 수 있습니다.</div>
+                        </div>
+                        <span class="badge badge-blue">최근 7일</span>
+                    </div>
+                    <div class="trend-bars" id="trendBars"></div>
+                </section>
+
+                <section class="panel">
+                    <div class="panel-head">
+                        <div>
+                            <div class="panel-title">리뷰 큐</div>
+                            <div class="panel-subtitle">부정확 가능성이 있거나 근거가 약한 질문을 우선 확인하는 영역입니다.</div>
+                        </div>
+                        <span class="badge badge-amber" id="queueCountBadge">0건</span>
+                    </div>
+                    <div class="queue-list" id="queueList"></div>
+                </section>
+            </div>
+
+            <div class="stack">
+                <section class="panel">
+                    <div class="panel-head">
+                        <div>
+                            <div class="panel-title">품질 점수</div>
+                            <div class="panel-subtitle">현재는 mock 값이지만, 구조는 live metrics와 바로 연결 가능하게 만들어 두었습니다.</div>
+                        </div>
+                        <span class="badge badge-green">Ready for Live Data</span>
+                    </div>
+                    <div class="score-list" id="scoreList"></div>
+                    <div class="mini-note">추천 운영 루틴: 부정 피드백 증가 → 리뷰 큐 확인 → retrieval debug 확인 → 문서 추가 또는 prompt 조정</div>
+                </section>
+
+                <section class="panel">
+                    <div class="panel-head">
+                        <div>
+                            <div class="panel-title">문서 커버리지</div>
+                            <div class="panel-subtitle">어떤 문서가 많이 인용되고, 어떤 문서가 아직 검색되지 않는지 보는 영역입니다.</div>
+                        </div>
+                    </div>
+                    <div class="doc-list" id="docList"></div>
+                </section>
+
+                <section class="panel">
+                    <div class="panel-head">
+                        <div>
+                            <div class="panel-title">문서 상태 / 인덱싱</div>
+                            <div class="panel-subtitle">버전 관리와 인덱싱 상태를 추적하기 위한 관리자 테이블입니다.</div>
+                        </div>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Document</th>
+                                <th>Status</th>
+                                <th>Version</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="indexTableBody"></tbody>
+                    </table>
+                </section>
+            </div>
+        </div>
+
+        <!-- ── v2: 응답 만족도 분석 ── -->
+        <div class="section-divider">
+            <h2>📊 응답 만족도 분석</h2>
+            <span class="badge badge-blue">피드백 기반</span>
+        </div>
+        <div class="grid-3">
+            <section class="panel">
+                <div class="panel-head">
+                    <div>
+                        <div class="panel-title">전체 만족도</div>
+                        <div class="panel-subtitle">긍정 / 부정 비율</div>
+                    </div>
+                    <span class="badge badge-green" id="satisfactionRateBadge">—</span>
+                </div>
+                <div class="chart-wrap"><canvas id="chartSatisfaction"></canvas></div>
+            </section>
+
+            <section class="panel">
+                <div class="panel-head">
+                    <div>
+                        <div class="panel-title">7일 만족도 추이</div>
+                        <div class="panel-subtitle">일별 긍정 비율 변화</div>
+                    </div>
+                    <span class="badge badge-blue">최근 7일</span>
+                </div>
+                <div class="chart-wrap"><canvas id="chartSatisfactionTrend"></canvas></div>
+            </section>
+
+            <section class="panel">
+                <div class="panel-head">
+                    <div>
+                        <div class="panel-title">불만족 사유 분포</div>
+                        <div class="panel-subtitle">부정 피드백 사유 분류</div>
+                    </div>
+                </div>
+                <div class="chart-wrap"><canvas id="chartNegativeReasons"></canvas></div>
+            </section>
+        </div>
+
+        <!-- ── v2: 질문 분석 ── -->
+        <div class="section-divider" style="margin-top:24px;">
+            <h2>🔍 질문 분석</h2>
+        </div>
+        <div class="grid-2-1">
+            <section class="panel">
+                <div class="panel-head">
+                    <div>
+                        <div class="panel-title">가장 많이 질문된 SOP Top 5</div>
+                        <div class="panel-subtitle">참조 빈도 기준</div>
+                    </div>
+                </div>
+                <div class="chart-wrap" style="height:200px;"><canvas id="chartTopSops"></canvas></div>
+            </section>
+
+            <section class="panel">
+                <div class="panel-head">
+                    <div>
+                        <div class="panel-title">질문 유형 분류</div>
+                        <div class="panel-subtitle">자동 카테고리 분류</div>
+                    </div>
+                </div>
+                <div class="chart-wrap" style="height:200px;"><canvas id="chartQuestionTypes"></canvas></div>
+            </section>
+        </div>
+
+        <section class="panel" style="margin-top:18px;">
+            <div class="panel-head">
+                <div>
+                    <div class="panel-title">SOP 커버리지 히트맵</div>
+                    <div class="panel-subtitle">전체 SOP 10종 중 참조된 빈도 — 색이 짙을수록 자주 참조됨</div>
+                </div>
+            </div>
+            <div class="heatmap-grid" id="coverageHeatmap"></div>
+        </section>
+
+        <!-- ── v2: 피드백 리뷰 큐 ── -->
+        <div class="section-divider" style="margin-top:24px;">
+            <h2>📋 피드백 리뷰 큐</h2>
+            <span class="badge badge-amber" id="feedbackQueueBadge">0건</span>
+        </div>
+        <section class="panel">
+            <div class="panel-head">
+                <div>
+                    <div class="panel-title">최신 부정 피드백</div>
+                    <div class="panel-subtitle">개선이 필요한 답변을 확인하고 검토 완료 처리하세요</div>
+                </div>
+            </div>
+            <div class="feedback-queue-list" id="feedbackQueueList"></div>
+        </section>
+
+        <!-- ── 탑재 Q&A 목록 ── -->
+        <div class="section-divider" style="margin-top:24px;">
+            <h2>🗂️ 탑재 Q&A 목록</h2>
+            <span class="badge badge-blue" id="qaDbBadge">0건</span>
+        </div>
+        <section class="panel">
+            <div class="panel-head">
+                <div>
+                    <div class="panel-title">오프라인 키워드 Q&A DB</div>
+                    <div class="panel-subtitle">OpenAI API 없이 키워드 매칭으로 동작하는 사전 정의 답변 목록입니다</div>
+                </div>
+                <input id="qaSearch" type="search" placeholder="키워드 또는 SOP 검색…"
+                    style="border:1px solid var(--line);border-radius:8px;padding:7px 12px;font-size:0.85rem;outline:none;width:220px;"
+                    oninput="filterQaTable(this.value)">
+            </div>
+            <div style="overflow-x:auto;margin-top:4px;">
+                <table id="qaDbTable" style="width:100%;border-collapse:collapse;font-size:0.85rem;">
+                    <thead>
+                        <tr style="border-bottom:2px solid var(--line);text-align:left;">
+                            <th style="padding:10px 12px;color:var(--muted);font-weight:600;width:40px;">#</th>
+                            <th style="padding:10px 12px;color:var(--muted);font-weight:600;width:160px;">출처 SOP</th>
+                            <th style="padding:10px 12px;color:var(--muted);font-weight:600;">인식 키워드</th>
+                            <th style="padding:10px 12px;color:var(--muted);font-weight:600;width:260px;">답변 미리보기</th>
+                        </tr>
+                    </thead>
+                    <tbody id="qaDbTbody"></tbody>
+                </table>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        async function loadDashboardData() {
+            const liveRes = await fetch('./api/dashboard').catch(() => null);
+            if (liveRes && liveRes.ok) {
+                const liveData = await liveRes.json();
+                if (liveData.mode !== 'empty') return liveData;
+            }
+
+            const mockRes = await fetch('./data/dashboard/dashboard-mock.json');
+            if (!mockRes.ok) throw new Error('대시보드 데이터를 불러오지 못했습니다.');
+            return mockRes.json();
+        }
+
+        function badgeClass(type) {
+            if (type === 'good' || type === 'indexed') return 'badge badge-green';
+            if (type === 'warn' || type === 'review') return 'badge badge-amber';
+            if (type === 'bad' || type === 'error') return 'badge badge-red';
+            return 'badge badge-blue';
+        }
+
+        function renderKpis(items) {
+            const root = document.getElementById('kpiGrid');
+            root.innerHTML = items.map(item => `
+                <div class="kpi-card">
+                    <div class="kpi-label">${item.label}</div>
+                    <div class="kpi-value">${item.value}</div>
+                    <div class="kpi-delta ${item.deltaTone}">${item.delta}</div>
+                </div>
+            `).join('');
+        }
+
+        function renderTrends(items) {
+            const max = Math.max(...items.map(item => item.value), 1);
+            document.getElementById('trendBars').innerHTML = items.map(item => `
+                <div class="trend-col">
+                    <div class="bar-wrap">
+                        <div class="bar" style="height:${(item.value / max) * 100}%;"></div>
+                    </div>
+                    <strong>${item.value}</strong>
+                    <div class="bar-note">${item.day}</div>
+                </div>
+            `).join('');
+        }
+
+        function renderScores(items) {
+            document.getElementById('scoreList').innerHTML = items.map(item => `
+                <div class="score-row">
+                    <strong>${item.label}</strong>
+                    <div class="meter"><span style="width:${item.value}%;"></span></div>
+                    <div class="score-num">${item.value}%</div>
+                </div>
+            `).join('');
+        }
+
+        function renderDocs(items) {
+            document.getElementById('docList').innerHTML = items.map(item => `
+                <div class="doc-row">
+                    <div class="doc-top">
+                        <div class="doc-name">${item.name}</div>
+                        <span class="${badgeClass(item.tone)}">${item.badge}</span>
+                    </div>
+                    <div class="doc-meta">인용 ${item.citations}회 · 실패 질문 ${item.failures}건 · 최신 버전 ${item.version}</div>
+                </div>
+            `).join('');
+        }
+
+        function renderQueue(items) {
+            document.getElementById('queueCountBadge').textContent = `${items.length}건`;
+            document.getElementById('queueList').innerHTML = items.map(item => `
+                <div class="queue-row">
+                    <div class="queue-top">
+                        <div class="queue-title">${item.question}</div>
+                        <span class="${badgeClass(item.severity)}">${item.status}</span>
+                    </div>
+                    <div class="queue-meta">${item.meta}</div>
+                </div>
+            `).join('');
+        }
+
+        function renderIndexTable(items) {
+            document.getElementById('indexTableBody').innerHTML = items.map(item => `
+                <tr>
+                    <td>
+                        <strong>${item.documentId}</strong>
+                        ${item.title}
+                    </td>
+                    <td><span class="${badgeClass(item.stateTone)}">${item.state}</span></td>
+                    <td>${item.version}</td>
+                    <td>${item.nextAction}</td>
+                </tr>
+            `).join('');
+        }
+
+        async function init() {
+            try {
+                const data = await loadDashboardData();
+                renderKpis(data.kpis);
+                renderTrends(data.dailyQuestions);
+                renderScores(data.qualityScores);
+                renderDocs(data.documentCoverage);
+                renderQueue(data.reviewQueue);
+                renderIndexTable(data.indexStatus);
+                document.getElementById('lastUpdated').textContent = `Last updated ${data.lastUpdated}`;
+                const modeBadge = document.querySelector('.pill');
+                modeBadge.textContent = data.mode === 'live' ? 'Live Data' : 'Mock Data Preview';
+            } catch (error) {
+                console.error(error);
+                document.getElementById('kpiGrid').innerHTML = '<div class="kpi-card"><div class="kpi-label">오류</div><div class="kpi-value">--</div><div class="kpi-delta warn">대시보드 데이터 로딩 실패</div></div>';
+            }
+        }
+
+        // ================================================================
+        // v2: 피드백 데이터 로딩
+        // ================================================================
+        async function loadFeedbackEntries() {
+            // 1. 로컬 서버 API 시도
+            try {
+                const res = await fetch('./api/feedback');
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data.entries && data.entries.length > 0) return data.entries;
+                }
+            } catch (_) {}
+
+            // 2. localStorage fallback (sop-qa-demo.html에서 저장된 데이터)
+            const local = JSON.parse(localStorage.getItem('sop-feedback-log') || 'null');
+            if (local && local.length > 0) return local;
+
+            // 3. 내장 demo 데이터
+            const res = await fetch('./data/dashboard/feedback-demo.json');
+            const data = await res.json();
+            return data.entries || [];
+        }
+
+        // ================================================================
+        // v2: 질문 유형 자동 분류
+        // ================================================================
+        function classifyQuestion(question) {
+            const q = (question || '').toLowerCase();
+            if (/세척|린스|swab|스왑|maco|이월|rinse/.test(q)) return '세척 절차';
+            if (/이탈|deviation|capa|oos|out-of-spec|규격 외|부적합/.test(q)) return '일탈 처리';
+            if (/문서|기록|보관|edms|배치|검토|승인|qp/.test(q)) return '문서 관리';
+            if (/설비|hvac|장비|기기|교정|grade|청정|hepa|압차|환기/.test(q)) return '장비 운영';
+            if (/교육|훈련|담당자|신규/.test(q)) return '교육 관련';
+            return '기타';
+        }
+
+        // ================================================================
+        // v2: 최근 7일 날짜 레이블 생성
+        // ================================================================
+        function getLast7Days() {
+            const days = [];
+            for (let i = 6; i >= 0; i--) {
+                const d = new Date('2026-03-20');
+                d.setDate(d.getDate() - i);
+                days.push(d.toISOString().slice(0, 10));
+            }
+            return days;
+        }
+
+        // ================================================================
+        // v2: 차트 렌더링
+        // ================================================================
+        function renderSatisfactionDonut(entries) {
+            const pos = entries.filter(e => e.rating === 'positive').length;
+            const neg = entries.filter(e => e.rating === 'negative').length;
+            const rate = entries.length ? Math.round((pos / entries.length) * 100) : 0;
+
+            document.getElementById('satisfactionRateBadge').textContent = `긍정 ${rate}%`;
+
+            new Chart(document.getElementById('chartSatisfaction'), {
+                type: 'doughnut',
+                data: {
+                    labels: ['👍 도움됨', '👎 개선필요'],
+                    datasets: [{
+                        data: [pos, neg],
+                        backgroundColor: ['#22c55e', '#ef4444'],
+                        borderWidth: 2,
+                        borderColor: '#ffffff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '68%',
+                    plugins: {
+                        legend: { position: 'bottom', labels: { font: { size: 12 }, padding: 14 } }
+                    }
+                }
+            });
+        }
+
+        function renderSatisfactionTrend(entries) {
+            const days = getLast7Days();
+            const labels = days.map(d => d.slice(5).replace('-', '/'));
+
+            const dataMap = {};
+            days.forEach(d => { dataMap[d] = { pos: 0, total: 0 }; });
+            entries.forEach(e => {
+                const day = (e.timestamp || '').slice(0, 10);
+                if (dataMap[day]) {
+                    dataMap[day].total++;
+                    if (e.rating === 'positive') dataMap[day].pos++;
+                }
+            });
+
+            const rates = days.map(d => dataMap[d].total ? Math.round((dataMap[d].pos / dataMap[d].total) * 100) : null);
+
+            new Chart(document.getElementById('chartSatisfactionTrend'), {
+                type: 'line',
+                data: {
+                    labels,
+                    datasets: [{
+                        label: '긍정 비율 (%)',
+                        data: rates,
+                        borderColor: '#2159b5',
+                        backgroundColor: 'rgba(33,89,181,0.08)',
+                        tension: 0.4,
+                        fill: true,
+                        pointBackgroundColor: '#2159b5',
+                        pointRadius: 4,
+                        spanGaps: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { min: 0, max: 100, ticks: { callback: v => v + '%', font: { size: 11 } }, grid: { color: '#f0f4fa' } },
+                        x: { ticks: { font: { size: 11 } }, grid: { display: false } }
+                    },
+                    plugins: { legend: { display: false } }
+                }
+            });
+        }
+
+        function renderNegativeReasons(entries) {
+            const negatives = entries.filter(e => e.rating === 'negative');
+            const reasons = ['부정확한 답변', '정보 부족', '출처 불일치', '기타'];
+            const counts = reasons.map(r => negatives.filter(e => e.negative_reason === r).length);
+
+            new Chart(document.getElementById('chartNegativeReasons'), {
+                type: 'bar',
+                data: {
+                    labels: reasons,
+                    datasets: [{
+                        data: counts,
+                        backgroundColor: ['#ef4444', '#f97316', '#eab308', '#8b5cf6'],
+                        borderRadius: 8,
+                        borderSkipped: false
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { ticks: { stepSize: 1, font: { size: 11 } }, grid: { color: '#f0f4fa' } },
+                        y: { ticks: { font: { size: 12 } }, grid: { display: false } }
+                    },
+                    plugins: { legend: { display: false } }
+                }
+            });
+        }
+
+        function renderTopSops(entries) {
+            const sopCounts = {};
+            entries.forEach(e => {
+                (e.referenced_sops || []).forEach(sop => {
+                    sopCounts[sop] = (sopCounts[sop] || 0) + 1;
+                });
+            });
+
+            const sorted = Object.entries(sopCounts)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 5);
+
+            new Chart(document.getElementById('chartTopSops'), {
+                type: 'bar',
+                data: {
+                    labels: sorted.map(([sop]) => sop),
+                    datasets: [{
+                        data: sorted.map(([, cnt]) => cnt),
+                        backgroundColor: '#2159b5',
+                        borderRadius: 8,
+                        borderSkipped: false
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { ticks: { stepSize: 1, font: { size: 11 } }, grid: { color: '#f0f4fa' } },
+                        y: { ticks: { font: { size: 12 } }, grid: { display: false } }
+                    },
+                    plugins: { legend: { display: false } }
+                }
+            });
+        }
+
+        function renderQuestionTypes(entries) {
+            const TYPES = ['세척 절차', '일탈 처리', '문서 관리', '장비 운영', '교육 관련', '기타'];
+            const counts = TYPES.map(t => entries.filter(e => classifyQuestion(e.question) === t).length);
+            const COLORS = ['#3b82f6', '#ef4444', '#8b5cf6', '#f97316', '#22c55e', '#94a3b8'];
+
+            new Chart(document.getElementById('chartQuestionTypes'), {
+                type: 'doughnut',
+                data: {
+                    labels: TYPES,
+                    datasets: [{
+                        data: counts,
+                        backgroundColor: COLORS,
+                        borderWidth: 2,
+                        borderColor: '#ffffff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '55%',
+                    plugins: {
+                        legend: { position: 'bottom', labels: { font: { size: 10 }, padding: 8, boxWidth: 12 } }
+                    }
+                }
+            });
+        }
+
+        function renderCoverageHeatmap(entries) {
+            const ALL_SOPS = [
+                { id: 'SOP-MFG-001', label: '설비 세척' },
+                { id: 'SOP-QA-002',  label: '배치 검토' },
+                { id: 'SOP-QC-003',  label: '환경 모니터링' },
+                { id: 'SOP-MFG-004', label: '원자재 샘플링' },
+                { id: 'SOP-MFG-005', label: '라인 클리어런스' },
+                { id: 'SOP-QA-006',  label: 'Deviation' },
+                { id: 'SOP-QA-007',  label: '변경관리' },
+                { id: 'SOP-QC-008',  label: '안정성 시험' },
+                { id: 'SOP-QC-009',  label: '기기 교정' },
+                { id: 'SOP-ENG-010', label: 'PW/WFI 시스템' }
+            ];
+
+            const counts = {};
+            entries.forEach(e => {
+                (e.referenced_sops || []).forEach(sop => {
+                    counts[sop] = (counts[sop] || 0) + 1;
+                });
+            });
+
+            const max = Math.max(...Object.values(counts), 1);
+
+            const container = document.getElementById('coverageHeatmap');
+            container.innerHTML = ALL_SOPS.map(({ id, label }) => {
+                const cnt = counts[id] || 0;
+                const level = cnt === 0 ? 0 : Math.ceil((cnt / max) * 5);
+                return `
+                    <div class="heatmap-cell heat-${level}" title="${id}: ${cnt}회 참조">
+                        <span class="heatmap-count">${cnt}</span>
+                        <span>${id.replace('SOP-', '')}</span>
+                        <br><span style="font-weight:400;font-size:0.62rem;">${label}</span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // ================================================================
+        // v2: 피드백 리뷰 큐
+        // ================================================================
+        function renderFeedbackReviewQueue(entries) {
+            const negatives = entries
+                .filter(e => e.rating === 'negative')
+                .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+            document.getElementById('feedbackQueueBadge').textContent = `${negatives.length}건`;
+
+            const container = document.getElementById('feedbackQueueList');
+
+            if (negatives.length === 0) {
+                container.innerHTML = '<div class="fq-empty">부정 피드백이 없습니다 👍</div>';
+                return;
+            }
+
+            const reviewed = new Set(JSON.parse(localStorage.getItem('sop-reviewed-feedback') || '[]'));
+
+            container.innerHTML = negatives.map(e => {
+                const isReviewed = reviewed.has(e.id);
+                const timeStr = new Date(e.timestamp).toLocaleDateString('ko-KR', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+                const sops = (e.referenced_sops || []).map(s => `<span class="fq-sop">${s}</span>`).join(' ');
+
+                return `
+                    <div class="fq-row ${isReviewed ? 'reviewed' : ''}" id="fqrow-${e.id}">
+                        <input type="checkbox" class="fq-check" ${isReviewed ? 'checked' : ''}
+                               onchange="toggleReviewed('${e.id}', this.checked)" title="검토 완료">
+                        <div class="fq-body">
+                            <div class="fq-question">${escHtml(e.question)}</div>
+                            <div class="fq-answer">${escHtml(e.answer || '')}</div>
+                            <div class="fq-meta">
+                                ${e.negative_reason ? `<span class="fq-reason">${escHtml(e.negative_reason)}</span>` : ''}
+                                ${sops}
+                                <span class="fq-time">${timeStr}</span>
+                                ${e.comment ? `<span class="fq-time">💬 ${escHtml(e.comment)}</span>` : ''}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function toggleReviewed(id, checked) {
+            const key = 'sop-reviewed-feedback';
+            const reviewed = new Set(JSON.parse(localStorage.getItem(key) || '[]'));
+            if (checked) reviewed.add(id); else reviewed.delete(id);
+            localStorage.setItem(key, JSON.stringify([...reviewed]));
+            const row = document.getElementById(`fqrow-${id}`);
+            if (row) row.classList.toggle('reviewed', checked);
+        }
+
+        function escHtml(t) {
+            return String(t || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+        }
+
+        // ================================================================
+        // v2 초기화
+        // ================================================================
+        async function initFeedback() {
+            try {
+                const entries = await loadFeedbackEntries();
+                renderSatisfactionDonut(entries);
+                renderSatisfactionTrend(entries);
+                renderNegativeReasons(entries);
+                renderTopSops(entries);
+                renderQuestionTypes(entries);
+                renderCoverageHeatmap(entries);
+                renderFeedbackReviewQueue(entries);
+            } catch (err) {
+                console.error('피드백 데이터 로딩 실패:', err);
+            }
+        }
+
+        // ================================================================
+        // QA DB 목록 렌더링
+        // ================================================================
+        async function loadQaDb() {
+            try {
+                const res = await fetch('./sop-qa-demo.html');
+                const html = await res.text();
+                const match = html.match(/const QA_DB\s*=\s*(\[[\s\S]*?\]);[\s\n]*\/\/ 기본 응답/);
+                if (!match) return [];
+                // eslint-disable-next-line no-new-func
+                return Function('"use strict"; return ' + match[1])();
+            } catch (e) {
+                return [];
+            }
+        }
+
+        function renderQaDb(entries) {
+            const badge = document.getElementById('qaDbBadge');
+            const tbody = document.getElementById('qaDbTbody');
+            if (!entries.length) {
+                badge.textContent = '0건';
+                tbody.innerHTML = '<tr><td colspan="4" style="padding:24px;text-align:center;color:var(--muted);">데이터를 불러오지 못했습니다.</td></tr>';
+                return;
+            }
+            badge.textContent = entries.length + '건';
+            window._qaDbEntries = entries;
+            renderQaRows(entries);
+        }
+
+        function renderQaRows(entries) {
+            const tbody = document.getElementById('qaDbTbody');
+            tbody.innerHTML = entries.map((qa, i) => {
+                const sources = qa.sources.map(s => {
+                    const id = s.split(' - ')[0];
+                    return `<span style="display:inline-block;background:var(--brand-soft);color:var(--brand);border-radius:4px;padding:1px 6px;font-size:0.78rem;margin:1px;">${id}</span>`;
+                }).join('');
+                const preview = qa.answer.replace(/\*\*/g, '').split('\n').find(l => l.trim()) || '';
+                const keywords = qa.keywords.map(k =>
+                    `<span style="display:inline-block;background:#f1f5f9;border-radius:4px;padding:1px 6px;font-size:0.78rem;margin:1px;color:var(--ink);">${k}</span>`
+                ).join('');
+                const bg = i % 2 === 0 ? '' : 'background:#fafbfd;';
+                return `<tr style="${bg}border-bottom:1px solid var(--line);">
+                    <td style="padding:10px 12px;color:var(--muted);">${i + 1}</td>
+                    <td style="padding:10px 12px;">${sources}</td>
+                    <td style="padding:10px 12px;line-height:1.8;">${keywords}</td>
+                    <td style="padding:10px 12px;color:var(--muted);line-height:1.5;">${preview.slice(0, 60)}${preview.length > 60 ? '…' : ''}</td>
+                </tr>`;
+            }).join('');
+        }
+
+        function filterQaTable(q) {
+            if (!window._qaDbEntries) return;
+            const lower = q.toLowerCase();
+            const filtered = lower
+                ? window._qaDbEntries.filter(qa =>
+                    qa.keywords.some(k => k.includes(lower)) ||
+                    qa.sources.some(s => s.toLowerCase().includes(lower)) ||
+                    qa.answer.toLowerCase().includes(lower)
+                )
+                : window._qaDbEntries;
+            renderQaRows(filtered);
+        }
+
+        async function initQaDb() {
+            const entries = await loadQaDb();
+            renderQaDb(entries);
+        }
+
+        init();
+        initFeedback();
+        initQaDb();
+    </script>
+</body>
+</html>

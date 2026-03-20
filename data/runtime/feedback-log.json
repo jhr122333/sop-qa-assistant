@@ -1,0 +1,17 @@
+{
+  "entries": [
+    {
+      "id": "bc3be9c1-baee-49af-8761-597ea0093ee0",
+      "timestamp": "2026-03-20T05:24:18.463Z",
+      "question": "입자 모니터링 빈도 등급",
+      "answer": "청정구역 등급별 입자 기준 (EU GMP Annex 1 / ISO 14644)입니다.\n\n**Grade A (ISO 5) — 고위험 구역**\n- 용도: 충전, 용기 마개 작업, 멸균",
+      "referenced_sops": [
+        "SOP-QC-003",
+        "SOP-QC-003"
+      ],
+      "rating": "positive",
+      "negative_reason": null,
+      "comment": null
+    }
+  ]
+}

@@ -1,0 +1,284 @@
+{
+  "entries": [
+    {
+      "id": "f1a2b3c4-0001-4000-a000-000000000001",
+      "timestamp": "2026-03-14T09:12:00Z",
+      "question": "세척 검증에서 Swab Test의 합격 기준은 무엇인가요?",
+      "answer": "Swab Test 합격 기준은 ≤ 4 μg/cm²입니다. 설비 표면 25 cm² 면적을 예비 습윤 면봉으로 채취하고",
+      "referenced_sops": ["SOP-MFG-001"],
+      "rating": "positive",
+      "negative_reason": null,
+      "comment": null
+    },
+    {
+      "id": "f1a2b3c4-0002-4000-a000-000000000002",
+      "timestamp": "2026-03-14T10:34:00Z",
+      "question": "MACO 계산 방법과 안전계수는 어떻게 적용하나요?",
+      "answer": "MACO = (TDD_prev × MBS) / (SF × TDD_next). 안전계수(SF)는 일반적으로 1,000을 적용합니다.",
+      "referenced_sops": ["SOP-MFG-001"],
+      "rating": "positive",
+      "negative_reason": null,
+      "comment": null
+    },
+    {
+      "id": "f1a2b3c4-0003-4000-a000-000000000003",
+      "timestamp": "2026-03-14T14:55:00Z",
+      "question": "OOS 발생 시 Phase 1 실험실 조사 항목이 뭔가요?",
+      "answer": "Phase 1 조사 항목: 계산 오류 재검토, 기기 교정 상태 점검, 표준품·시약·시험법 검토, 크로마토그램 재검토",
+      "referenced_sops": ["SOP-QA-002"],
+      "rating": "negative",
+      "negative_reason": "정보 부족",
+      "comment": "Phase 2 조사 절차도 함께 설명해줬으면 좋겠어요"
+    },
+    {
+      "id": "f1a2b3c4-0004-4000-a000-000000000004",
+      "timestamp": "2026-03-15T08:20:00Z",
+      "question": "Grade A 청정구역의 입자 기준치는?",
+      "answer": "Grade A (ISO 5): 0.5μm 이상 ≤ 3,520 개/m³, 5.0μm 이상 ≤ 20 개/m³ (작업 중)",
+      "referenced_sops": ["SOP-QC-003"],
+      "rating": "positive",
+      "negative_reason": null,
+      "comment": null
+    },
+    {
+      "id": "f1a2b3c4-0005-4000-a000-000000000005",
+      "timestamp": "2026-03-15T09:47:00Z",
+      "question": "배치 기록 검토 5단계 절차를 설명해 주세요",
+      "answer": "1단계 완전성 검토 → 2단계 공정 준수 검토 → 3단계 시험 결과 검토 → 4단계 이탈 및 변경 검토 → 5단계 최종 출하",
+      "referenced_sops": ["SOP-QA-002"],
+      "rating": "positive",
+      "negative_reason": null,
+      "comment": null
+    },
+    {
+      "id": "f1a2b3c4-0006-4000-a000-000000000006",
+      "timestamp": "2026-03-15T11:03:00Z",
+      "question": "설비 세척 절차 Step별로 설명해 주세요",
+      "answer": "세척 6단계: Step1 분해 → Step2 예비 세척 → Step3 세척제 적용 → Step4 중간 헹굼 → Step5 최종 헹굼 → Step6",
+      "referenced_sops": ["SOP-MFG-001"],
+      "rating": "positive",
+      "negative_reason": null,
+      "comment": null
+    },
+    {
+      "id": "f1a2b3c4-0007-4000-a000-000000000007",
+      "timestamp": "2026-03-15T15:28:00Z",
+      "question": "미생물 모니터링에서 Grade B Settle Plate 기준은?",
+      "answer": "Grade B Settle Plate 기준: ≤ 5 CFU/4hr (작업 중). 90mm TSA 배지 4시간 노출 후 측정합니다.",
+      "referenced_sops": ["SOP-QC-003"],
+      "rating": "negative",
+      "negative_reason": "부정확한 답변",
+      "comment": "Grade C, D 기준도 함께 나와야 비교가 쉬운데 Grade B만 나왔어요"
+    },
+    {
+      "id": "f1a2b3c4-0008-4000-a000-000000000008",
+      "timestamp": "2026-03-16T09:10:00Z",
+      "question": "Deviation 발생 시 즉각 조치 사항은?",
+      "answer": "즉각 조치: 1) QA 구두 및 서면 즉시 보고 2) 해당 배치 Hold 조치 3) OOS 조사 공식 개시",
+      "referenced_sops": ["SOP-QA-006", "SOP-QA-002"],
+      "rating": "positive",
+      "negative_reason": null,
+      "comment": null
+    },
+    {
+      "id": "f1a2b3c4-0009-4000-a000-000000000009",
+      "timestamp": "2026-03-16T13:44:00Z",
+      "question": "배치 기록 보관 기간은 얼마나 되나요?",
+      "answer": "배치 제조 기록: 제품 유효기한 + 1년 이상 (최소 5년). 출하 승인서: 5년 이상 보관 필요합니다.",
+      "referenced_sops": ["SOP-QA-002"],
+      "rating": "negative",
+      "negative_reason": "출처 불일치",
+      "comment": "EU GMP Annex 규정과 내용이 다른 것 같습니다 확인 필요합니다"
+    },
+    {
+      "id": "f1a2b3c4-0010-4000-a000-000000000010",
+      "timestamp": "2026-03-17T08:05:00Z",
+      "question": "HVAC 압차 기준 Grade A/B 사이는 얼마인가요?",
+      "answer": "Grade A/B 사이: ≥ 15 Pa, Grade B/C 사이: ≥ 10 Pa, Grade C/D 사이: ≥ 5 Pa 유지",
+      "referenced_sops": ["SOP-QC-003"],
+      "rating": "positive",
+      "negative_reason": null,
+      "comment": null
+    },
+    {
+      "id": "f1a2b3c4-0011-4000-a000-000000000011",
+      "timestamp": "2026-03-17T09:30:00Z",
+      "question": "Worst-case 세척 검증 전략에서 대표 제품 선정 기준은?",
+      "answer": "Worst-case 선정 기준: 용해도가 가장 낮은 제품, MACO 값이 가장 작은 제품, 독성이 가장 강한 제품",
+      "referenced_sops": ["SOP-MFG-001"],
+      "rating": "positive",
+      "negative_reason": null,
+      "comment": null
+    },
+    {
+      "id": "f1a2b3c4-0012-4000-a000-000000000012",
+      "timestamp": "2026-03-17T11:15:00Z",
+      "question": "QP(Qualified Person)의 역할과 법적 책임은?",
+      "answer": "QP는 출하 최종 승인 및 법적 책임을 집니다. EU GMP 기준 상 QP 서명 없이는 출하 불가합니다.",
+      "referenced_sops": ["SOP-QA-002"],
+      "rating": "positive",
+      "negative_reason": null,
+      "comment": null
+    },
+    {
+      "id": "f1a2b3c4-0013-4000-a000-000000000013",
+      "timestamp": "2026-03-17T14:20:00Z",
+      "question": "원자재 샘플링 절차를 알고 싶습니다",
+      "answer": "현재 탑재된 SOP 문서에서 원자재 샘플링 절차에 대한 직접적인 근거를 찾지 못했습니다.",
+      "referenced_sops": ["SOP-MFG-004"],
+      "rating": "negative",
+      "negative_reason": "정보 부족",
+      "comment": null
+    },
+    {
+      "id": "f1a2b3c4-0014-4000-a000-000000000014",
+      "timestamp": "2026-03-17T16:45:00Z",
+      "question": "Grade C 구역의 환기 횟수 기준은 몇 회인가요?",
+      "answer": "Grade C: 최소 20회/hr. Grade D: 최소 10회/hr의 환기 횟수를 유지해야 합니다.",
+      "referenced_sops": ["SOP-QC-003"],
+      "rating": "positive",
+      "negative_reason": null,
+      "comment": null
+    },
+    {
+      "id": "f1a2b3c4-0015-4000-a000-000000000015",
+      "timestamp": "2026-03-18T08:55:00Z",
+      "question": "4M1E 분석 방법이란 무엇인가요?",
+      "answer": "4M1E는 오염 원인 분석 방법으로 인원(Man), 설비(Machine), 소재(Material), 방법(Method), 환경(Environment)을 분석합니다.",
+      "referenced_sops": ["SOP-QC-003", "SOP-QA-006"],
+      "rating": "positive",
+      "negative_reason": null,
+      "comment": null
+    },
+    {
+      "id": "f1a2b3c4-0016-4000-a000-000000000016",
+      "timestamp": "2026-03-18T10:12:00Z",
+      "question": "세척제 2% SLS 준비 방법과 사용 시 PPE 착용 기준은?",
+      "answer": "PPE 착용: 화학 보호복, 고글, 내화학성 글로브, 마스크. 승인된 세척제(2% SLS, 0.5% NaOH) 준비",
+      "referenced_sops": ["SOP-MFG-001"],
+      "rating": "positive",
+      "negative_reason": null,
+      "comment": null
+    },
+    {
+      "id": "f1a2b3c4-0017-4000-a000-000000000017",
+      "timestamp": "2026-03-18T13:30:00Z",
+      "question": "HEPA 필터 누설 시험 주기는?",
+      "answer": "HEPA 필터 누설 시험(DOP/PAO): 6개월~연 1회. 연기 시험(층류 확인): 연 1회 이상 실시해야 합니다.",
+      "referenced_sops": ["SOP-QC-003"],
+      "rating": "positive",
+      "negative_reason": null,
+      "comment": null
+    },
+    {
+      "id": "f1a2b3c4-0018-4000-a000-000000000018",
+      "timestamp": "2026-03-18T15:40:00Z",
+      "question": "변경관리(Change Control) 절차를 알고 싶어요",
+      "answer": "현재 탑재된 SOP에서 변경관리 세부 절차를 찾지 못했습니다. SOP-QA-007을 직접 참조해 주세요.",
+      "referenced_sops": ["SOP-QA-007"],
+      "rating": "negative",
+      "negative_reason": "기타",
+      "comment": "변경관리 SOP 내용이 대시보드에 반영되지 않아 답변이 불충분합니다"
+    },
+    {
+      "id": "f1a2b3c4-0019-4000-a000-000000000019",
+      "timestamp": "2026-03-19T08:10:00Z",
+      "question": "Swab Test와 Rinse Test 차이점은 무엇인가요?",
+      "answer": "Swab Test: 표면 직접 채취 (≤4μg/cm²). Rinse Test: 최종 린스수 채취 (≤1μg/mL). 두 방법 병행 사용",
+      "referenced_sops": ["SOP-MFG-001"],
+      "rating": "positive",
+      "negative_reason": null,
+      "comment": null
+    },
+    {
+      "id": "f1a2b3c4-0020-4000-a000-000000000020",
+      "timestamp": "2026-03-19T09:55:00Z",
+      "question": "배치 기록에서 수정 방법은 어떻게 해야 하나요?",
+      "answer": "수정 시 단선 취소 + 수정자 서명 준수. 수정액(화이트) 사용 금지. 오류 발생 시 1줄로 긋고 날짜, 서명 기재",
+      "referenced_sops": ["SOP-QA-002"],
+      "rating": "positive",
+      "negative_reason": null,
+      "comment": null
+    },
+    {
+      "id": "f1a2b3c4-0021-4000-a000-000000000021",
+      "timestamp": "2026-03-19T11:20:00Z",
+      "question": "라인 클리어런스 체크 항목은 무엇인가요?",
+      "answer": "현재 탑재된 SOP에서 라인 클리어런스 세부 체크 항목을 찾지 못했습니다. SOP-MFG-005를 참조하세요.",
+      "referenced_sops": ["SOP-MFG-005"],
+      "rating": "negative",
+      "negative_reason": "부정확한 답변",
+      "comment": null
+    },
+    {
+      "id": "f1a2b3c4-0022-4000-a000-000000000022",
+      "timestamp": "2026-03-19T13:45:00Z",
+      "question": "GMP 교육 훈련 기록 보관 기간은?",
+      "answer": "환경 모니터링 기록지: 5년 이상. 세척 기록지 및 검증 보고서: QA 승인 후 영구 보관 권장합니다.",
+      "referenced_sops": ["SOP-QA-002"],
+      "rating": "positive",
+      "negative_reason": null,
+      "comment": null
+    },
+    {
+      "id": "f1a2b3c4-0023-4000-a000-000000000023",
+      "timestamp": "2026-03-19T15:00:00Z",
+      "question": "Alert 기준과 Action 기준의 차이는?",
+      "answer": "Alert: 허용 기준의 50% 초과 → 조기 경보, 원인 조사 시작. Action: 허용 기준 초과 → 즉각 조치 필요.",
+      "referenced_sops": ["SOP-QC-003"],
+      "rating": "positive",
+      "negative_reason": null,
+      "comment": null
+    },
+    {
+      "id": "f1a2b3c4-0024-4000-a000-000000000024",
+      "timestamp": "2026-03-20T08:30:00Z",
+      "question": "세척 후 시각적 검사 기준은 무엇인가요?",
+      "answer": "300 lux 이상 조명 아래 전 표면 검사. Visually Clean (잔류물·이물질·변색 없음) 확인 후 담당자 서명.",
+      "referenced_sops": ["SOP-MFG-001"],
+      "rating": "positive",
+      "negative_reason": null,
+      "comment": null
+    },
+    {
+      "id": "f1a2b3c4-0025-4000-a000-000000000025",
+      "timestamp": "2026-03-20T09:40:00Z",
+      "question": "분석기기 교정 주기와 절차는?",
+      "answer": "현재 탑재된 SOP에서 분석기기 교정 세부 주기를 찾지 못했습니다. SOP-QC-009를 직접 참조해 주세요.",
+      "referenced_sops": ["SOP-QC-009"],
+      "rating": "negative",
+      "negative_reason": "출처 불일치",
+      "comment": "교정 기록 보관은 SOP-QA-002에 있는데 SOP-QC-009를 왜 참조하는지 이해 안 됩니다"
+    },
+    {
+      "id": "f1a2b3c4-0026-4000-a000-000000000026",
+      "timestamp": "2026-03-20T10:55:00Z",
+      "question": "CoA 발행 조건과 QP 서명 절차는?",
+      "answer": "QP(Qualified Person)가 배치 기록 검토 완료 후 최종 출하 승인 서명. CoA는 전 규격 합격 후 발행됩니다.",
+      "referenced_sops": ["SOP-QA-002"],
+      "rating": "positive",
+      "negative_reason": null,
+      "comment": null
+    },
+    {
+      "id": "f1a2b3c4-0027-4000-a000-000000000027",
+      "timestamp": "2026-03-20T13:20:00Z",
+      "question": "Grade A 구역에서 미생물 부유 샘플링 장비는?",
+      "answer": "능동 샘플링: RCS/SAS 공기 샘플러 (배지: TSA). Grade A 기준: < 1 CFU/m³ (연속 모니터링)",
+      "referenced_sops": ["SOP-QC-003"],
+      "rating": "positive",
+      "negative_reason": null,
+      "comment": null
+    },
+    {
+      "id": "f1a2b3c4-0028-4000-a000-000000000028",
+      "timestamp": "2026-03-20T15:10:00Z",
+      "question": "안정성 시험 샘플 보관 조건은 어떻게 되나요?",
+      "answer": "현재 탑재된 SOP에서 안정성 시험 샘플 보관 세부 조건을 찾지 못했습니다. SOP-QC-008을 참조하세요.",
+      "referenced_sops": ["SOP-QC-008"],
+      "rating": "positive",
+      "negative_reason": null,
+      "comment": null
+    }
+  ]
+}
